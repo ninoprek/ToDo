@@ -1,9 +1,6 @@
 package view;
 
 import controller.Controller;
-import model.Command;
-import model.CommandWord;
-import model.CommandWords;
 
 import java.util.Scanner;
 
@@ -13,7 +10,6 @@ public class Parser {
     private Controller controller;
     private PrintView printView;
     private Scanner reader;
-
 
     public Parser () {
 
@@ -28,7 +24,7 @@ public class Parser {
         String word1 = null;
         String word2 = null;
 
-        System.out.println("> ");
+        System.out.print("> ");
 
         inputLine = reader.nextLine();
 
@@ -61,6 +57,7 @@ public class Parser {
 
             case HELP:
                 printView.printHelp();
+                commands.showAll();
                 break;
 
             case NEW:
@@ -69,6 +66,10 @@ public class Parser {
 
             case EDIT:
                 printView.printEdit();
+                break;
+
+            case REMOVE:
+                printView.printRemove();
                 break;
 
             case QUIT:
@@ -92,6 +93,11 @@ public class Parser {
 
             return true;
         }
+    }
+
+    public void getPrintStart() {
+
+        printView.printStart();
     }
 
 }

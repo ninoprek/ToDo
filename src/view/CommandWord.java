@@ -1,8 +1,8 @@
-package model;
+package view;
 
-public enum  CommandWord {
+public enum CommandWord {
 
-    NEW("new"), EDIT("edit"), HELP("help"), QUIT("quit"), UNKNOWN("?");
+    NEW("new"), EDIT("edit"), HELP("help"), REMOVE("remove"), QUIT("quit"), UNKNOWN("?");
 
     private String commandString;
 

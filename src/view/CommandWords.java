@@ -1,4 +1,4 @@
-package model;
+package view;
 
 import java.util.HashMap;
 
@@ -26,6 +26,7 @@ public class CommandWords {
         if (command != null) {
 
             return command;
+
         } else {
             return CommandWord.UNKNOWN;
         }
@@ -40,7 +41,7 @@ public class CommandWords {
 
         for(String command: validCommands.keySet()) {
 
-            System.out.println(command + "  ");
+            System.out.print(command + "  ");
         }
         System.out.println();
     }

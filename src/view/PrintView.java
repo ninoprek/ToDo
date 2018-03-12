@@ -31,4 +31,10 @@ public class PrintView {
 
         System.out.println("You want to quit what?!");
     }
+
+    public void printRemove() {
+
+        System.out.println("This is remove!");
+    }
+
 }
