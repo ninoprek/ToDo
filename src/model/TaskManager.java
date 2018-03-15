@@ -50,4 +50,20 @@ public class TaskManager {
         currentUser.createTask(title, project);
     }
 
+    /**
+     * Prints out names of all users.
+     */
+
+    public void showAllUsers () {
+
+        for (User user : users) {
+
+            System.out.println(user.getUserName());
+        }
+    }
+
+    public void showAllTasks() {
+        currentUser.showAllTasks();
+    }
+
 }

@@ -27,4 +27,10 @@ public class TaskCollection {
 
         taskCollection.add(new Task(title, project));
     }
+
+    public  void showAllTasks() {
+        for (Task task : taskCollection) {
+            System.out.println(task.getTitle());
+        }
+    }
 }

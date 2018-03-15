@@ -47,5 +47,22 @@ public class Controller {
         taskManager.addTask(title, project);
     }
 
+    /**
+     * Prints out names of all registered users
+     */
+
+    public void showAllUsers() {
+
+        taskManager.showAllUsers();
+    }
+
+    /**
+     * Prints out titles of all tasks in a current task collection
+     */
+
+    public void showAllTasks() {
+
+        taskManager.showAllTasks();
+    }
 
 }

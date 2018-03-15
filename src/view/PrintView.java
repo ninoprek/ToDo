@@ -2,40 +2,17 @@ package view;
 
 public class PrintView {
 
-    public void printStart() {
 
-        System.out.println("Welcome to the ToDo application.");
+    public void printMessage(String mesage) {
         System.out.println();
+        System.out.println(mesage);
     }
 
-    public void printHelp() {
-
-        System.out.println("This is help!");
-    }
-
-    public void printEdit() {
-
-        System.out.println("This is edit!");
-    }
-
-    public void printNew() {
-
-        System.out.println("This is new!");
-    }
-
-    public void printUnknown() {
-
-        System.out.println("This is unknown!");
-    }
-
-    public void printQuitWhat() {
-
-        System.out.println("You want to quit what?!");
-    }
-
-    public void printRemove() {
-
-        System.out.println("This is remove!");
+    public void printInput(String message) {
+        System.out.println();
+        System.out.println(message);
+        System.out.println();
+        System.out.print("> ");
     }
 
 }

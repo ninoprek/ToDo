@@ -20,4 +20,8 @@ public class Task {
         this.status= false;
         this.project = project;
     }
+
+    public String getTitle() {
+        return this.title;
+    }
 }

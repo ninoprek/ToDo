@@ -71,24 +71,45 @@ public class Parser {
         switch (commandWord) {
 
             case UNKNOWN:
-                printView.printUnknown();
+                printView.printMessage("This is unknown");
                 break;
 
             case HELP:
-                printView.printHelp();
+                printView.printMessage("This is help");
                 commands.showAll();
+                System.out.println();
                 break;
 
             case NEW:
-                printView.printNew();
+                printView.printMessage("Create new user name, list and task");
+                newUserInput();
+                break;
+
+            case TASK:
+                printView.printMessage("Create new task");
+                newTaskInput();
+                break;
+
+            case TASKS:
+                printView.printMessage("All tasks");
+                printView.printMessage("---------------");
+                controller.showAllTasks();
+                System.out.println("---------------");
+                break;
+
+            case USERS:
+                printView.printMessage("All users");
+                printView.printMessage("---------------");
+                controller.showAllUsers();
+                System.out.println("---------------");
                 break;
 
             case EDIT:
-                printView.printEdit();
+                printView.printMessage("This is edit");
                 break;
 
             case REMOVE:
-                printView.printRemove();
+                printView.printMessage("This is remove");
                 break;
 
             case QUIT:
@@ -103,9 +124,12 @@ public class Parser {
      */
     public void showCommands() {
 
-        System.out.println("Available commands are: ");
+        printView.printMessage("Available commands are: ");
+        printView.printMessage("");
 
         commands.showAll();
+        System.out.println();
+
     }
 
     /**
@@ -118,7 +142,7 @@ public class Parser {
     private boolean quit(Command command) {
 
         if(command.hasSecondWord()) {
-            printView.printQuitWhat();
+            printView.printMessage("You want to quit what?!");
             return false;
         } else {
 
@@ -132,7 +156,66 @@ public class Parser {
 
     public void getPrintStart() {
 
-        printView.printStart();
+        printView.printMessage("Welcome to the coolest ToDo app");
+        printView.printMessage("-------------------------------");
+    }
+
+
+    private void newUserInput() {
+        String userName;
+        String collectionName;
+        String title;
+        String project;
+
+        printView.printInput("What is your name?");
+
+
+        userName = reader.nextLine();
+
+        controller.createUser(userName);
+
+        printView.printInput("What is the name of your ToDo list?");
+
+        collectionName = reader.nextLine();
+
+        controller.createTaskCollection(collectionName);
+
+        printView.printInput("What is your task?");
+
+        title = reader.nextLine();
+
+        printView.printInput("To which project does it belong?");
+
+        project = reader.nextLine();
+
+        controller.createTask(title, project);
+        printView.printMessage("User name, list name and your first task are saved.");
+        printView.printMessage("!!!!!!!  Amazing  !!!!!!");
+        printView.printMessage("-------------------------------");
+
+    }
+
+    private void newTaskInput() {
+        String title;
+        String project;
+
+
+        printView.printInput("What is you're task?");
+
+        title = reader.nextLine();
+
+        System.out.println();
+        printView.printInput("To which project does it belong?");
+
+        project = reader.nextLine();
+
+        printView.printMessage("Your task is saved");
+        printView.printMessage("-- What a joy! --");
+        printView.printMessage("-------------------------------");
+
+        controller.createTask(title, project);
+
+
     }
 
 }
