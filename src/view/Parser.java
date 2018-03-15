@@ -1,8 +1,14 @@
+
 package view;
 
 import controller.Controller;
 
 import java.util.Scanner;
+
+/**
+ * This class is responsible for scanning and interpreting user input. After it interprets the user input,
+ * it calls appropriate methods in the controller.
+ */
 
 public class Parser {
 
@@ -18,6 +24,12 @@ public class Parser {
         printView = new PrintView();
         reader = new Scanner(System.in);
     }
+
+    /**
+     * Reads user input and takes first two words in order to create a <code>Command</code> object.
+     *
+     * @return New command detected from user input.
+     */
 
     public Command getCommand() {
         String inputLine;
@@ -42,6 +54,13 @@ public class Parser {
 
         return new Command(commands.getCommandWord(word1), word2);
     }
+
+    /**
+     * Analyses the <code>Command</code> received from the user and calls appropriate function.
+     *
+     * @param command - command inputted by the user.
+     * @return If the <code>quit</code> command is detected returns <code>true</code>, if not returns <code>false<code/>.
+     */
 
     public boolean processCommand(Command command) {
 
@@ -79,10 +98,20 @@ public class Parser {
         return wantToQuit;
     }
 
+    /**
+     * Shows all valid commands
+     */
     public void showCommands() {
 
         commands.showAll();
     }
+
+    /**
+     * Performs <code>quit</code> command and quits the application
+     *
+     * @param command - receives <code>quit</code> command
+     * @return false is there are two words and true if it is only <code>quit</code> command
+     */
 
     private boolean quit(Command command) {
 
@@ -94,6 +123,10 @@ public class Parser {
             return true;
         }
     }
+
+    /**
+     * Prints out beginning message
+     */
 
     public void getPrintStart() {
 

@@ -1,5 +1,11 @@
 package view;
 
+/**
+ * Represents the <code>View</code> of the application
+ *
+ * Holds a reference to the <code>Parser</code>
+ */
+
 public class View {
 
     private Parser parser;
@@ -8,6 +14,10 @@ public class View {
 
         parser = new Parser();
     }
+
+    /**
+     * The main function that keeps the application running until the <code>quit</code> command has been entered by the user
+     */
 
     public void start() {
 

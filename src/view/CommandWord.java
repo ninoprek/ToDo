@@ -1,5 +1,9 @@
 package view;
 
+/**
+ * List of valid commands that represent application functionalities
+ */
+
 public enum CommandWord {
 
     NEW("new"), EDIT("edit"), HELP("help"), REMOVE("remove"), QUIT("quit"), UNKNOWN("?");
@@ -10,6 +14,10 @@ public enum CommandWord {
 
         this.commandString = commandString;
     }
+
+    /**
+     * @return String value of the valid command
+     */
 
     public String toString() {
 
