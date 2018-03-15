@@ -24,6 +24,7 @@ public class View {
         boolean finished = false;
 
         parser.getPrintStart();
+        parser.showCommands();
 
         while (!finished) {
             Command command = parser.getCommand();

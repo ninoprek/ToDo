@@ -5,6 +5,7 @@ public class PrintView {
     public void printStart() {
 
         System.out.println("Welcome to the ToDo application.");
+        System.out.println();
     }
 
     public void printHelp() {

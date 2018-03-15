@@ -103,6 +103,8 @@ public class Parser {
      */
     public void showCommands() {
 
+        System.out.println("Available commands are: ");
+
         commands.showAll();
     }
 
