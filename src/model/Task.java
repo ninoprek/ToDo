@@ -1,6 +1,5 @@
 package model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -48,9 +47,8 @@ public class Task {
      * @return Returns dueDate in <code>String</code> format
      */
 
-    public String getDueDate() {
-        SimpleDateFormat dateParser = new SimpleDateFormat("dd/mm/yyyy");
+    public Date getDueDate() {
 
-        return dateParser.format(dueDate);
+        return dueDate;
     }
 }

@@ -1,6 +1,8 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,14 +33,14 @@ public class TaskCollection {
 
     public  void showAllTasks() {
 
-        List<Task> sortedTaskCollectin = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
 
-        sortedTaskCollectin = taskCollection.stream().sorted((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate())).collect(Collectors.toList());
+        List<Task> sortedTaskCollectin = taskCollection.stream().sorted((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate())).collect(Collectors.toList());
 
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         for (Task task : sortedTaskCollectin) {
-            System.out.println("Task: " + task.getTitle() + ", due date: " + task.getDueDate() + ", status: " + task.getStatus() +
+            System.out.println("Task: " + task.getTitle() + ", due date: " + dateFormat.format(task.getDueDate()) + ", status: " + task.getStatus() +
                     ", project:" + task.getProject());
         }
 
