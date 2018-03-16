@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Hold a list of tasks.
@@ -19,18 +21,26 @@ public class TaskCollection {
 
     /**
      * Adds a new task to the collection
-     * @param title Title of the <code>task</code>
-     * @param project Name of the <code>project</code> the <code>task</code> belongs to.
+     * @param taskDTO Holds information about the <code>task</code>
      */
 
-    public void crateNewTask (String title, String project) {
+    public void crateNewTask (TaskDTO taskDTO) {
 
-        taskCollection.add(new Task(title, project));
+        taskCollection.add(new Task(taskDTO));
     }
 
     public  void showAllTasks() {
-        for (Task task : taskCollection) {
-            System.out.println(task.getTitle());
+
+        List<Task> sortedTaskCollectin = new ArrayList<>();
+
+        sortedTaskCollectin = taskCollection.stream().sorted((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate())).collect(Collectors.toList());
+
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        for (Task task : sortedTaskCollectin) {
+            System.out.println("Task: " + task.getTitle() + ", due date: " + task.getDueDate() + ", status: " + task.getStatus() +
+                    ", project:" + task.getProject());
         }
+
     }
 }

@@ -31,13 +31,12 @@ public class User {
 
     /**
      * Creates a new <code>task</code> for a current <code>user</code> in a current <code>task</code> collection
-     * @param title Title of the <code>task</code>
-     * @param project Name of the project
+     * @param taskDTO Holds information about the <code>task</code>
      */
 
-    public void createTask (String title, String project) {
+    public void createTask (TaskDTO taskDTO) {
 
-        currentTaskCollection.crateNewTask(title, project);
+        currentTaskCollection.crateNewTask(taskDTO);
 
         taskCollections.add(currentTaskCollection);
     }

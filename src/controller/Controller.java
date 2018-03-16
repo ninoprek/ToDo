@@ -1,5 +1,6 @@
 package controller;
 
+import model.TaskDTO;
 import model.TaskManager;
 
 
@@ -38,13 +39,12 @@ public class Controller {
 
     /**
      * Creates a new <code>Task</code> for a current <code>user</code> in a current <code>task</code> collection
-     * @param title Title of the <code>task</code>
-     * @param project Name of the project
+     * @param taskDTO Holds information about the <code>task</code>
      */
 
-    public void createTask(String title, String project) {
+    public void createTask(TaskDTO taskDTO) {
 
-        taskManager.addTask(title, project);
+        taskManager.addTask(taskDTO);
     }
 
     /**

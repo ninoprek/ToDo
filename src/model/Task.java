@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -10,18 +11,46 @@ import java.util.Date;
 public class Task {
 
     private String title;
-    //private Date dueDate;
+    private Date dueDate;
     private boolean status;
     private String project;
 
-    public Task (String title, String project) {
+    public Task (TaskDTO taskDTO) {
 
-        this.title = title;
-        this.status= false;
-        this.project = project;
+        this.title = taskDTO.getTitle();
+        this.status= taskDTO.isStatus();
+        this.project = taskDTO.getProject();
+        this.dueDate = taskDTO.getDueDate();
     }
 
     public String getTitle() {
         return this.title;
+    }
+
+    /**
+     *
+     * @return Returns <code>String</code> "finished" if <code>status</code> is <code>true</code>, otherwise returns "unfinished"
+     */
+
+    public String getStatus() {
+        if (status) {
+            return "finished";
+        } else {
+            return "unfinished";
+        }
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    /**
+     * @return Returns dueDate in <code>String</code> format
+     */
+
+    public String getDueDate() {
+        SimpleDateFormat dateParser = new SimpleDateFormat("dd/mm/yyyy");
+
+        return dateParser.format(dueDate);
     }
 }

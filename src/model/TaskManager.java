@@ -41,13 +41,12 @@ public class TaskManager {
 
     /**
      * Creates a new <code>Task</code> for a current <code>user</code> in a current <code>task</code> collection
-     * @param title Title of the <code>task</code>
-     * @param project Name of the project
+     * @param taskDTO Holds information about the <code>task</code>
      */
 
-    public void addTask (String title, String project) {
+    public void addTask (TaskDTO taskDTO) {
 
-        currentUser.createTask(title, project);
+        currentUser.createTask(taskDTO);
     }
 
     /**

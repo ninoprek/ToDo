@@ -30,7 +30,7 @@ public class View {
             Command command = parser.getCommand();
             finished = parser.processCommand(command);
         }
-
+        parser.getPrintExit();
     }
 
 }

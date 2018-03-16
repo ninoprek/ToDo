@@ -2,7 +2,12 @@
 package view;
 
 import controller.Controller;
+import model.TaskDTO;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -36,7 +41,7 @@ public class Parser {
         String word1 = null;
         String word2 = null;
 
-        System.out.print("> ");
+        printView.printInput("");
 
         inputLine = reader.nextLine();
 
@@ -122,13 +127,14 @@ public class Parser {
     /**
      * Shows all valid commands
      */
+
     public void showCommands() {
 
         printView.printMessage("Available commands are: ");
-        printView.printMessage("");
+        System.out.println();
 
         commands.showAll();
-        System.out.println();
+
 
     }
 
@@ -143,6 +149,7 @@ public class Parser {
 
         if(command.hasSecondWord()) {
             printView.printMessage("You want to quit what?!");
+
             return false;
         } else {
 
@@ -160,12 +167,21 @@ public class Parser {
         printView.printMessage("-------------------------------");
     }
 
+    public void getPrintExit() {
+
+        printView.printMessage("Thank for using ToDo app");
+        printView.printMessage("-------------------------------");
+    }
+
 
     private void newUserInput() {
         String userName;
         String collectionName;
         String title;
         String project;
+        boolean correctDateFormat = true;
+        Date dueDate = new Date();
+        DateFormat dateParser = new SimpleDateFormat("dd/mm/yyyy");
 
         printView.printInput("What is your name?");
 
@@ -188,7 +204,22 @@ public class Parser {
 
         project = reader.nextLine();
 
-        controller.createTask(title, project);
+        printView.printMessage("What is the due date for the task?");
+
+        while(correctDateFormat){
+            printView.printInput("Correct date input format is dd/mm/yyyy");
+
+            try {
+                dueDate = dateParser.parse(reader.nextLine());
+                correctDateFormat = false;
+            } catch (ParseException e) {
+                printView.printMessage("Date format is not correct.");
+            }
+        }
+
+        TaskDTO taskDTO = new TaskDTO(title, project, dueDate);
+
+        controller.createTask(taskDTO);
         printView.printMessage("User name, list name and your first task are saved.");
         printView.printMessage("!!!!!!!  Amazing  !!!!!!");
         printView.printMessage("-------------------------------");
@@ -196,11 +227,15 @@ public class Parser {
     }
 
     private void newTaskInput() {
+
         String title;
         String project;
+        boolean correctDateFormat = true;
+        Date dueDate = new Date();
+        DateFormat dateParser = new SimpleDateFormat("dd/mm/yyyy");
 
 
-        printView.printInput("What is you're task?");
+        printView.printInput("What is your task?");
 
         title = reader.nextLine();
 
@@ -209,11 +244,30 @@ public class Parser {
 
         project = reader.nextLine();
 
+        printView.printMessage("What is the due date for the task?");
+
+        while(correctDateFormat){
+
+            printView.printInput("Correct date input format is dd/mm/yyyy");
+
+            try {
+                dueDate = dateParser.parse(reader.nextLine());
+                correctDateFormat = false;
+            } catch (ParseException e) {
+                printView.printMessage("Date format is not correct.");
+            }
+        }
+
+
+        TaskDTO taskDTO = new TaskDTO(title, project, dueDate);
+
+        controller.createTask(taskDTO);
+
         printView.printMessage("Your task is saved");
         printView.printMessage("-- What a joy! --");
         printView.printMessage("-------------------------------");
 
-        controller.createTask(title, project);
+
 
 
     }
