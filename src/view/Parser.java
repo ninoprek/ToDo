@@ -98,7 +98,7 @@ public class Parser {
             case TASKS:
                 printView.printMessage("All tasks");
                 printView.printMessage("---------------");
-                controller.showAllTasks();
+                printView.showAllTasks(controller.showAllTasks());
                 System.out.println("---------------");
                 break;
 
@@ -190,7 +190,7 @@ public class Parser {
 
         controller.createUser(userName);
 
-        printView.printInput("What is the name of your ToDo list?");
+        printView.printInput("What is the name of your ToDo list project?");
 
         collectionName = reader.nextLine();
 
@@ -200,9 +200,9 @@ public class Parser {
 
         title = reader.nextLine();
 
-        printView.printInput("To which project does it belong?");
+        /*printView.printInput("To which project does it belong?");
 
-        project = reader.nextLine();
+        project = reader.nextLine();*/
 
         printView.printMessage("What is the due date for the task?");
 
@@ -217,7 +217,7 @@ public class Parser {
             }
         }
 
-        TaskDTO taskDTO = new TaskDTO(title, project, dueDate);
+        TaskDTO taskDTO = new TaskDTO(title, dueDate);
 
         controller.createTask(taskDTO);
         printView.printMessage("User name, list name and your first task are saved.");
@@ -259,7 +259,7 @@ public class Parser {
         }
 
 
-        TaskDTO taskDTO = new TaskDTO(title, project, dueDate);
+        TaskDTO taskDTO = new TaskDTO(title, dueDate);
 
         controller.createTask(taskDTO);
 

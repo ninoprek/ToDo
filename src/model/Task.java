@@ -12,13 +12,11 @@ public class Task {
     private String title;
     private Date dueDate;
     private boolean status;
-    private String project;
 
     public Task (TaskDTO taskDTO) {
 
         this.title = taskDTO.getTitle();
         this.status= taskDTO.isStatus();
-        this.project = taskDTO.getProject();
         this.dueDate = taskDTO.getDueDate();
     }
 
@@ -37,10 +35,6 @@ public class Task {
         } else {
             return "unfinished";
         }
-    }
-
-    public String getProject() {
-        return project;
     }
 
     /**

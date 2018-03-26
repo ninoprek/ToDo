@@ -12,13 +12,11 @@ public class TaskDTO {
     private String title;
     private Date dueDate;
     private boolean status;
-    private String project;
 
-    public TaskDTO (String title, String project, Date dueDate) {
+    public TaskDTO (String title, Date dueDate) {
 
         this.title = title;
         this.status= false;
-        this.project = project;
         this.dueDate = dueDate;
     }
 
@@ -33,9 +31,5 @@ public class TaskDTO {
 
     public boolean isStatus() {
         return status;
-    }
-
-    public String getProject() {
-        return project;
     }
 }

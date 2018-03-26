@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Holds users name and a collection of task lists related to a <code>user</code>.
@@ -41,13 +42,19 @@ public class User {
         taskCollections.add(currentTaskCollection);
     }
 
+    /**
+     *
+     *
+     * @return
+     */
+
     public String getUserName() {
         return  userName;
     }
 
-    public void showAllTasks() {
+    public TaskCollectionDTO showAllTasks() {
 
-        currentTaskCollection.showAllTasks();
+        return currentTaskCollection.showAllTasks();
     }
 
 }

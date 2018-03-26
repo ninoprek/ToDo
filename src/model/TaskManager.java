@@ -2,6 +2,7 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Holds the list of all users, current user and manages user, list and task creation.
@@ -61,8 +62,8 @@ public class TaskManager {
         }
     }
 
-    public void showAllTasks() {
-        currentUser.showAllTasks();
+    public TaskCollectionDTO showAllTasks() {
+        return currentUser.showAllTasks();
     }
 
 }

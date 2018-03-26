@@ -1,7 +1,11 @@
 package controller;
 
+import model.Task;
+import model.TaskCollectionDTO;
 import model.TaskDTO;
 import model.TaskManager;
+
+import java.util.List;
 
 
 /**
@@ -60,9 +64,9 @@ public class Controller {
      * Prints out titles of all tasks in a current task collection
      */
 
-    public void showAllTasks() {
+    public TaskCollectionDTO showAllTasks() {
 
-        taskManager.showAllTasks();
+        return taskManager.showAllTasks();
     }
 
 }

@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 public class TaskCollection {
 
     private ArrayList<Task> taskCollection;
-    private String collectionName;
+    private String projectName;
 
     public TaskCollection (String collectionName) {
 
         taskCollection = new ArrayList<>();
-        this.collectionName = collectionName;
+        this.projectName = collectionName;
     }
 
     /**
@@ -31,18 +31,12 @@ public class TaskCollection {
         taskCollection.add(new Task(taskDTO));
     }
 
-    public  void showAllTasks() {
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+    public TaskCollectionDTO showAllTasks() {
 
         List<Task> sortedTaskCollectin = taskCollection.stream().sorted((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate())).collect(Collectors.toList());
 
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        for (Task task : sortedTaskCollectin) {
-            System.out.println("Task: " + task.getTitle() + ", due date: " + dateFormat.format(task.getDueDate()) + ", status: " + task.getStatus() +
-                    ", project:" + task.getProject());
-        }
+        System.out.println("I'm in TaskCollection");
+        return new TaskCollectionDTO(sortedTaskCollectin, projectName);
 
     }
 }
