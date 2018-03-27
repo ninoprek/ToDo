@@ -1,9 +1,6 @@
 package controller;
 
-import model.Task;
-import model.TaskCollectionDTO;
-import model.TaskDTO;
-import model.TaskManager;
+import model.*;
 
 import java.util.List;
 
@@ -68,5 +65,18 @@ public class Controller {
 
         return taskManager.showAllTasks();
     }
+
+    /**
+     * Calls method to edit <code>{@link Task}</code> object field in <code>currentTaskCollection</code> for <code>currentUser</code>
+     * @param taskFieldToEdit Name of the field that has to edited.
+     * @param taskFieldValue Value that has to be stored at <code>taskFieldToEdit</code> field.
+     * @param taskNumber Number of the <code>{@link Task}</code> object in <code>taskCollection</code>
+     */
+
+    public void editTask(String taskFieldToEdit , TaskFieldValue taskFieldValue , Integer taskNumber) {
+
+        taskManager.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
+    }
+
 
 }

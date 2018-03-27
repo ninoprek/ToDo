@@ -1,8 +1,6 @@
 package model;
 
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Holds the list of all users, current user and manages user, list and task creation.
@@ -31,7 +29,7 @@ public class TaskManager {
     }
 
     /**
-     * Creates a new collection for storing <code>tasks</code> for a current <code>user</code>
+     * Creates a new collection for storing <code>Tasks</code> for a current <code>User</code>
      * @param collectionName Name of the new collection
      */
 
@@ -62,8 +60,25 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Gets the list of all <code>{@link Task}</code> objects sorted by <code>dueDate</code> from the current <code>{@link User}</code> in a <code>currentTaskCollection</code>
+     * @return Object that contains all <code>{@link Task}</code> objects.
+     */
+
     public TaskCollectionDTO showAllTasks() {
         return currentUser.showAllTasks();
+    }
+
+    /**
+     * Calls method to edit <code>{@link Task}</code> object field in <code>currentTaskCollection</code> for <code>currentUser</code>
+     * @param taskFieldToEdit Name of the field that has to edited.
+     * @param taskFieldValue Value that has to be stored at <code>taskFieldToEdit</code> field.
+     * @param taskNumber Number of the <code>{@link Task}</code> object in <code>taskCollection</code>
+     */
+
+    public void editTask(String taskFieldToEdit , TaskFieldValue taskFieldValue , Integer taskNumber) {
+
+        currentUser.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
     }
 
 }

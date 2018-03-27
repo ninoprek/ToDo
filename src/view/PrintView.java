@@ -21,12 +21,13 @@ public class PrintView {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
 
-        System.out.println("Project: " + sortedTaskCollectin.getProjectName());
+        System.out.println("Project name: " + sortedTaskCollectin.getProjectName() + "\n");
 
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
+        int i = 0;
         for (Task task : sortedTaskCollectin.getTaskCollection()) {
-                   System.out.println("Task: " + task.getTitle() + ", due date: " + dateFormat.format(task.getDueDate()) + ", status: " + task.getStatus());
+                   System.out.println("Task no. " + i + ": " + task.getTitle() + ", due date: " + dateFormat.format(task.getDueDate()) + ", status: " + task.getStatus());
+                   i++;
                 }
         }
     }

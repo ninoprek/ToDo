@@ -1,19 +1,22 @@
 package model;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Hold a list of tasks.
+ * Holds a list of tasks and calls methods on <code>{@link Task}</code> objects
  */
 
 public class TaskCollection {
 
     private ArrayList<Task> taskCollection;
     private String projectName;
+
+    /**
+     * Creates an collection of <code>{@link Task}</code> objects and gives it a name
+     * @param collectionName The name of the collection
+     */
 
     public TaskCollection (String collectionName) {
 
@@ -31,12 +34,31 @@ public class TaskCollection {
         taskCollection.add(new Task(taskDTO));
     }
 
+    /**
+     *
+     * @return Returns <code>{@link TaskCollectionDTO}</code> object that contains <code>List</code> of <code>Task</code> objects to <code>View</code>
+     */
+
     public TaskCollectionDTO showAllTasks() {
 
         List<Task> sortedTaskCollectin = taskCollection.stream().sorted((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate())).collect(Collectors.toList());
 
-        System.out.println("I'm in TaskCollection");
         return new TaskCollectionDTO(sortedTaskCollectin, projectName);
 
+    }
+
+    /**
+     * Selects the <code>{@link Task}</code> object at certain position number from <code>taskCollection</code> and calls it's edit function
+     * @param taskFieldToEdit Name of the field that has to edited.
+     * @param taskFieldValue Value that has to be stored at <code>taskFieldToEdit</code> field.
+     * @param taskNumber Number of the <code>{@link Task}</code> object in <code>taskCollection</code>
+     */
+
+    public void editTask(String taskFieldToEdit , TaskFieldValue taskFieldValue , Integer taskNumber) {
+        System.out.println("Fetching the right task in the current taskCollection");
+
+        Task taskToEdit = taskCollection.get(taskNumber);
+
+        taskToEdit.editTask(taskFieldToEdit, taskFieldValue);
     }
 }

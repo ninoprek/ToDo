@@ -3,6 +3,7 @@ package view;
 
 import controller.Controller;
 import model.TaskDTO;
+import model.TaskFieldValue;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -72,6 +73,7 @@ public class Parser {
         boolean wantToQuit = false;
 
         CommandWord commandWord = command.getCommandWord();
+        String secondWord = command.getSecondWord();
 
         switch (commandWord) {
 
@@ -111,6 +113,8 @@ public class Parser {
 
             case EDIT:
                 printView.printMessage("This is edit");
+                editTask();
+
                 break;
 
             case REMOVE:
@@ -178,31 +182,20 @@ public class Parser {
         String userName;
         String collectionName;
         String title;
-        String project;
         boolean correctDateFormat = true;
         Date dueDate = new Date();
         DateFormat dateParser = new SimpleDateFormat("dd/mm/yyyy");
 
-        printView.printInput("What is your name?");
-
-
-        userName = reader.nextLine();
+        userName = getUserInput("What is your name?");
 
         controller.createUser(userName);
 
-        printView.printInput("What is the name of your ToDo list project?");
-
-        collectionName = reader.nextLine();
+        collectionName = getUserInput("What is the name of your ToDo list project?");
 
         controller.createTaskCollection(collectionName);
 
-        printView.printInput("What is your task?");
+        title = getUserInput("What is your task?");
 
-        title = reader.nextLine();
-
-        /*printView.printInput("To which project does it belong?");
-
-        project = reader.nextLine();*/
 
         printView.printMessage("What is the due date for the task?");
 
@@ -229,29 +222,19 @@ public class Parser {
     private void newTaskInput() {
 
         String title;
-        String project;
         boolean correctDateFormat = true;
         Date dueDate = new Date();
         DateFormat dateParser = new SimpleDateFormat("dd/mm/yyyy");
 
+        title = getUserInput("What is your task?");
 
-        printView.printInput("What is your task?");
-
-        title = reader.nextLine();
-
-        System.out.println();
-        printView.printInput("To which project does it belong?");
-
-        project = reader.nextLine();
 
         printView.printMessage("What is the due date for the task?");
 
         while(correctDateFormat){
 
-            printView.printInput("Correct date input format is dd/mm/yyyy");
-
             try {
-                dueDate = dateParser.parse(reader.nextLine());
+                dueDate = dateParser.parse(getUserInput("Correct date input format is dd/mm/yyyy"));
                 correctDateFormat = false;
             } catch (ParseException e) {
                 printView.printMessage("Date format is not correct.");
@@ -266,10 +249,79 @@ public class Parser {
         printView.printMessage("Your task is saved");
         printView.printMessage("-- What a joy! --");
         printView.printMessage("-------------------------------");
+    }
 
 
+    private void editTask() {
 
+        String taskFieldToEdit = null;
+        TaskFieldValue taskFieldValue = null;
+        Integer taskNumber;
+        String newStatus;
+        boolean validFieldToEdit = false;
+        boolean correctDateFormat = false;
+        boolean correctStatus = false;
+        DateFormat dateParser = new SimpleDateFormat("dd/mm/yyyy");
 
+        taskNumber = Integer.parseInt(getUserInput("Which task number you want to edit?"));
+
+        while (!validFieldToEdit) {
+
+            taskFieldToEdit = getUserInput("Which task element do you want to edit?\nValid input: \n<Title>- Change the task title \n<Date> - Change task due date \n<Status> - Change completion status of the task");
+
+            if(taskFieldToEdit.equals("Title") || taskFieldToEdit.equals("Date") || taskFieldToEdit.equals("Status")) {
+                validFieldToEdit = true;
+            } else {
+                printView.printMessage("Invalid task element!");
+            }
+        }
+
+        switch (taskFieldToEdit) {
+            case "Title":
+                taskFieldValue = new TaskFieldValue(getUserInput("What is the new title for the task?"));
+                System.out.println("I received the taskFieldValue");
+                break;
+            case "Date":
+                while (!correctDateFormat) {
+
+                       try {
+                           taskFieldValue = new TaskFieldValue(dateParser.parse(getUserInput("What is the new due date?\nCorrect date input format is dd/mm/yyyy")));
+                           correctDateFormat = true;
+                       } catch (ParseException e) {
+                             printView.printMessage("Date format is not correct.");
+                       }
+                }
+                break;
+
+            case "Status":
+
+                while (!correctStatus) {
+                    newStatus = getUserInput("What is the new status?\nValid input is <finished> and <unfinished>.");
+
+                    if (newStatus.equals("finished")) {
+                        taskFieldValue = new TaskFieldValue(true);
+                        correctStatus = true;
+                    } else if (newStatus.equals("unfinished")) {
+                        taskFieldValue = new TaskFieldValue(false);
+                        correctStatus = true;
+                    } else {
+                        printView.printMessage("Invalid input for task status!");
+                    }
+                }
+                break;
+        }
+
+        controller.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
+    }
+
+    private String getUserInput (String messageToUser) {
+
+        printView.printInput(messageToUser);
+
+        String userInpur = reader.nextLine();
+        printView.printMessage("");
+
+        return userInpur;
     }
 
 }

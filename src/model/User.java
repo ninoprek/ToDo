@@ -60,5 +60,17 @@ public class User {
         return currentTaskCollection.showAllTasks();
     }
 
+    /**
+     * Calls method to edit <code>{@link Task}</code> object field
+     * @param taskFieldToEdit Name of the field that has to edited.
+     * @param taskFieldValue Value that has to be stored at <code>taskFieldToEdit</code> field.
+     * @param taskNumber Number of the <code>{@link Task}</code> object in <code>taskCollection</code>
+     */
+
+    public void editTask(String taskFieldToEdit , TaskFieldValue taskFieldValue , Integer taskNumber) {
+
+        currentTaskCollection.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
+    }
+
 }
 
