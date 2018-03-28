@@ -55,7 +55,6 @@ public class TaskCollection {
      */
 
     public void editTask(String taskFieldToEdit , TaskFieldValue taskFieldValue , Integer taskNumber) {
-        System.out.println("Fetching the right task in the current taskCollection");
 
         Task taskToEdit = taskCollection.get(taskNumber);
 

@@ -16,14 +16,14 @@ import java.util.Scanner;
  * it calls appropriate methods in the controller.
  */
 
-public class Parser {
+public class UserInputManager {
 
     private CommandWords commands;
     private Controller controller;
     private PrintView printView;
     private Scanner reader;
 
-    public Parser () {
+    public UserInputManager () {
 
         commands = new CommandWords();
         controller = new Controller();
@@ -78,19 +78,27 @@ public class Parser {
         switch (commandWord) {
 
             case UNKNOWN:
-                printView.printMessage("This is unknown");
+                printView.printMessage("This input is unknown");
+                showCommands();
                 break;
 
             case HELP:
                 printView.printMessage("This is help");
-                commands.showAll();
+                showCommands();
                 System.out.println();
                 break;
 
             case NEW:
-                printView.printMessage("Create new user name, list and task");
-                newUserInput();
-                break;
+
+                if(secondWord == null) {
+                    printView.printMessage("Create new user name, list and task\n");
+                    newStartInput();
+                    break;
+                } else if (secondWord.equals("task")) {
+                    printView.printMessage("Create new task");
+                    newTaskInput();
+                    break;
+                }
 
             case TASK:
                 printView.printMessage("Create new task");
@@ -112,10 +120,30 @@ public class Parser {
                 break;
 
             case EDIT:
-                printView.printMessage("This is edit");
-                editTask();
 
-                break;
+                if (secondWord == null) {
+                    printView.printMessage("What do you want to edit?");
+                    printView.printMessage("Valid input is <edit task> and <edit project>");
+                    break;
+
+                } else if (secondWord.equals("task")) {
+                    printView.printMessage("This is task edit\n");
+                    printView.printMessage("All tasks");
+                    printView.printMessage("---------------");
+                    printView.showAllTasks(controller.showAllTasks());
+                    printView.printMessage("---------------");
+
+                    editTask();
+                    printView.printMessage("The task has been edited successfully!\nInput <tasks> to list all the tasks in project");
+                    break;
+                } else if (secondWord.equals("project")) {
+                    printView.printMessage("Edit project name");
+                    break;
+                }else {
+                    printView.printMessage("What do you want to edit?");
+                    printView.printMessage("Valid input is <edit task> and <edit project>");
+                    break;
+                }
 
             case REMOVE:
                 printView.printMessage("This is remove");
@@ -134,11 +162,10 @@ public class Parser {
 
     public void showCommands() {
 
-        printView.printMessage("Available commands are: ");
-        System.out.println();
+        printView.printMessage("Available commands are: \n");
 
         commands.showAll();
-
+        printView.printMessage("");
 
     }
 
@@ -177,46 +204,27 @@ public class Parser {
         printView.printMessage("-------------------------------");
     }
 
+    private void newStartInput() {
 
-    private void newUserInput() {
-        String userName;
-        String collectionName;
-        String title;
-        boolean correctDateFormat = true;
-        Date dueDate = new Date();
-        DateFormat dateParser = new SimpleDateFormat("dd/mm/yyyy");
+        newUserInput();
 
-        userName = getUserInput("What is your name?");
+        newProjectInput();
+
+        newTaskInput();
+    }
+
+    private void newUserInput () {
+
+        String userName = getUserInput("What is your name?");
 
         controller.createUser(userName);
+    }
 
-        collectionName = getUserInput("What is the name of your ToDo list project?");
+    private void newProjectInput () {
+
+        String collectionName = getUserInput("What is the name of your new ToDo list project?");
 
         controller.createTaskCollection(collectionName);
-
-        title = getUserInput("What is your task?");
-
-
-        printView.printMessage("What is the due date for the task?");
-
-        while(correctDateFormat){
-            printView.printInput("Correct date input format is dd/mm/yyyy");
-
-            try {
-                dueDate = dateParser.parse(reader.nextLine());
-                correctDateFormat = false;
-            } catch (ParseException e) {
-                printView.printMessage("Date format is not correct.");
-            }
-        }
-
-        TaskDTO taskDTO = new TaskDTO(title, dueDate);
-
-        controller.createTask(taskDTO);
-        printView.printMessage("User name, list name and your first task are saved.");
-        printView.printMessage("!!!!!!!  Amazing  !!!!!!");
-        printView.printMessage("-------------------------------");
-
     }
 
     private void newTaskInput() {
@@ -267,7 +275,7 @@ public class Parser {
 
         while (!validFieldToEdit) {
 
-            taskFieldToEdit = getUserInput("Which task element do you want to edit?\nValid input: \n<Title>- Change the task title \n<Date> - Change task due date \n<Status> - Change completion status of the task");
+            taskFieldToEdit = getUserInput("Which task element do you want to edit?\n\nValid input: \n\n<Title>- Change the task title \n<Date> - Change task due date \n<Status> - Change completion status of the task");
 
             if(taskFieldToEdit.equals("Title") || taskFieldToEdit.equals("Date") || taskFieldToEdit.equals("Status")) {
                 validFieldToEdit = true;
@@ -279,7 +287,6 @@ public class Parser {
         switch (taskFieldToEdit) {
             case "Title":
                 taskFieldValue = new TaskFieldValue(getUserInput("What is the new title for the task?"));
-                System.out.println("I received the taskFieldValue");
                 break;
             case "Date":
                 while (!correctDateFormat) {
@@ -318,10 +325,10 @@ public class Parser {
 
         printView.printInput(messageToUser);
 
-        String userInpur = reader.nextLine();
+        String userInput = reader.nextLine();
         printView.printMessage("");
 
-        return userInpur;
+        return userInput;
     }
 
 }

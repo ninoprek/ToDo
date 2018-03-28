@@ -8,11 +8,11 @@ package view;
 
 public class View {
 
-    private Parser parser;
+    private UserInputManager userTaskManager;
 
     public View () {
 
-        parser = new Parser();
+        userTaskManager = new UserInputManager();
     }
 
     /**
@@ -23,14 +23,14 @@ public class View {
 
         boolean finished = false;
 
-        parser.getPrintStart();
-        parser.showCommands();
+        userTaskManager.getPrintStart();
+        userTaskManager.showCommands();
 
         while (!finished) {
-            Command command = parser.getCommand();
-            finished = parser.processCommand(command);
+            Command command = userTaskManager.getCommand();
+            finished = userTaskManager.processCommand(command);
         }
-        parser.getPrintExit();
+        userTaskManager.getPrintExit();
     }
 
 }
