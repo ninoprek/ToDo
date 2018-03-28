@@ -275,9 +275,9 @@ public class UserInputManager {
 
         while (!validFieldToEdit) {
 
-            taskFieldToEdit = getUserInput("Which task element do you want to edit?\n\nValid input: \n\n<Title>- Change the task title \n<Date> - Change task due date \n<Status> - Change completion status of the task");
+            taskFieldToEdit = getUserInput("Which task element do you want to edit?\n\nValid input: \n\n<title>- Change the task title \n<date> - Change task due date \n<status> - Change completion status of the task");
 
-            if(taskFieldToEdit.equals("Title") || taskFieldToEdit.equals("Date") || taskFieldToEdit.equals("Status")) {
+            if(taskFieldToEdit.equals("title") || taskFieldToEdit.equals("date") || taskFieldToEdit.equals("status")) {
                 validFieldToEdit = true;
             } else {
                 printView.printMessage("Invalid task element!");

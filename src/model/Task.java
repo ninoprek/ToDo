@@ -70,13 +70,13 @@ public class Task {
 
         switch (taskFieldToEdit) {
 
-            case "Title":
+            case "title":
                 setTitle((String) taskFieldValue.getT());
                 break;
-            case "Date":
+            case "date":
                 setDueDate((Date) taskFieldValue.getT());
                 break;
-            case "Status":
+            case "status":
                 setStatus((Boolean) taskFieldValue.getT());
                 break;
         }
