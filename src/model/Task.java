@@ -39,6 +39,10 @@ public class Task {
         }
     }
 
+    public boolean getBooleanStatus () {
+        return status;
+    }
+
     /**
      * @return Returns dueDate in <code>String</code> format
      */
@@ -48,15 +52,15 @@ public class Task {
         return dueDate;
     }
 
-    public void setTitle(String title) {
+    private void setTitle(String title) {
         this.title = title;
     }
 
-    public void setDueDate(Date dueDate) {
+    private void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 
-    public void setStatus(boolean status) {
+    private void setStatus(boolean status) {
         this.status = status;
     }
 

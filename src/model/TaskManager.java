@@ -10,10 +10,12 @@ public class TaskManager {
 
     private ArrayList<User> users;
     private User currentUser;
+    private FileUtility fileUtility;
 
     public TaskManager() {
 
         users = new ArrayList<>();
+        fileUtility = new FileUtility("inputFile.txt");
     }
 
     /**
@@ -66,7 +68,17 @@ public class TaskManager {
      */
 
     public TaskCollectionDTO showAllTasks() {
-        return currentUser.showAllTasks();
+
+        if (currentUser != null) {
+            return currentUser.showAllTasks();
+        } else {
+
+            TaskCollectionDTO empty = null;
+
+            return empty;
+        }
+
+
     }
 
     /**
@@ -79,6 +91,31 @@ public class TaskManager {
     public void editTask(String taskFieldToEdit , TaskFieldValue taskFieldValue , Integer taskNumber) {
 
         currentUser.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
+    }
+
+    /**
+     * Reads a <code>{@link User}</code> object form the class with all of it's fields
+     */
+
+    public void loadUser () {
+
+        LoadUserDTO loadUser = fileUtility.loadFromFile();
+
+        addUser(loadUser.getUserName());
+
+        ArrayList<TaskCollectionDTO> taskCollectionsDTO = loadUser.getTaskCollections();
+
+        for (TaskCollectionDTO taskCol : taskCollectionsDTO) {
+
+            currentUser.createTaskCollection(taskCol.getProjectName());
+
+            for (TaskDTO task : taskCol.getTaskCollection()) {
+
+                currentUser.createTask(task);
+            }
+
+        }
+
     }
 
 }

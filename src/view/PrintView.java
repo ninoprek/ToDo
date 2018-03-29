@@ -1,8 +1,11 @@
 package view;
 
-import model.Task;
 import model.TaskCollectionDTO;
+import model.TaskDTO;
+
 import java.text.SimpleDateFormat;
+
+import static view.UserInputManager.DATE_FORMAT;
 
 
 public class PrintView {
@@ -19,15 +22,21 @@ public class PrintView {
 
     public void showAllTasks(TaskCollectionDTO sortedTaskCollectin) {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        if (sortedTaskCollectin != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
-        System.out.println("Project name: " + sortedTaskCollectin.getProjectName() + "\n");
+            System.out.println("Project name: " + sortedTaskCollectin.getProjectName() + "\n");
 
 
-        int i = 0;
-        for (Task task : sortedTaskCollectin.getTaskCollection()) {
-                   System.out.println("Task no. " + i + ": " + task.getTitle() + ", due date: " + dateFormat.format(task.getDueDate()) + ", status: " + task.getStatus());
-                   i++;
-                }
+            int i = 0;
+            for (TaskDTO task : sortedTaskCollectin.getTaskCollection()) {
+                System.out.println("Task no. " + i + ": " + task.getTitle() + ", due date: " + dateFormat.format(task.getDueDate()) + ", status: " + (task.isStatus() ? "finished" : "unfinished"));
+                i++;
+            }
+        } else {
+            printMessage("There are no tasks!");
         }
+
+        }
+
     }

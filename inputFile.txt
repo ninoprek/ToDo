@@ -1,2 +1,8 @@
-Nino 12/3/2018 Projekt Novi
-Marija 3/5/2018 posao stari
+Nino,,2
+Work,,3
+My task is to work,,12/3/2018,,false
+after work I will play games,,3/5/2018,,false
+When I finish Zelda, I'll go to sleep,,4/5/2018,,false
+Workout,,2
+Dream of working out,,4/5/2018,,true
+Finally star working our,,6/7/2018,,false

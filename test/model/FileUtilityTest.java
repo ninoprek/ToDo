@@ -22,6 +22,6 @@ class FileUtilityTest {
     @Test
     void readTaskListTest() {
 
-        fileUtility.readTaskList();
+        fileUtility.loadFromFile();
     }
 }

@@ -13,10 +13,10 @@ public class TaskDTO {
     private Date dueDate;
     private boolean status;
 
-    public TaskDTO (String title, Date dueDate) {
+    public TaskDTO (String title, Date dueDate, boolean status) {
 
         this.title = title;
-        this.status= false;
+        this.status= status;
         this.dueDate = dueDate;
     }
 

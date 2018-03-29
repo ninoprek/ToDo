@@ -78,5 +78,14 @@ public class Controller {
         taskManager.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
     }
 
+    /**
+     * Calls method in <code>{@link TaskManager}</code> to load <code>{@link User}</code> information from file.
+     */
+
+    public void loadUser () {
+
+        taskManager.loadUser();
+    }
+
 
 }

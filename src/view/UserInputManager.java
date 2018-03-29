@@ -18,6 +18,8 @@ import java.util.Scanner;
 
 public class UserInputManager {
 
+    public static final String DATE_FORMAT = "dd/mm/yyyy";
+
     private CommandWords commands;
     private Controller controller;
     private PrintView printView;
@@ -149,6 +151,11 @@ public class UserInputManager {
                 printView.printMessage("This is remove");
                 break;
 
+            case LOAD:
+                printView.printMessage("This is load");
+                controller.loadUser();
+                break;
+
             case QUIT:
                 wantToQuit = quit(command);
                 break;
@@ -232,7 +239,7 @@ public class UserInputManager {
         String title;
         boolean correctDateFormat = true;
         Date dueDate = new Date();
-        DateFormat dateParser = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat dateParser = new SimpleDateFormat(DATE_FORMAT);
 
         title = getUserInput("What is your task?");
 
@@ -250,7 +257,7 @@ public class UserInputManager {
         }
 
 
-        TaskDTO taskDTO = new TaskDTO(title, dueDate);
+        TaskDTO taskDTO = new TaskDTO(title, dueDate, false);
 
         controller.createTask(taskDTO);
 
@@ -269,7 +276,7 @@ public class UserInputManager {
         boolean validFieldToEdit = false;
         boolean correctDateFormat = false;
         boolean correctStatus = false;
-        DateFormat dateParser = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat dateParser = new SimpleDateFormat(DATE_FORMAT);
 
         taskNumber = Integer.parseInt(getUserInput("Which task number you want to edit?"));
 
@@ -285,10 +292,10 @@ public class UserInputManager {
         }
 
         switch (taskFieldToEdit) {
-            case "Title":
+            case "title":
                 taskFieldValue = new TaskFieldValue(getUserInput("What is the new title for the task?"));
                 break;
-            case "Date":
+            case "date":
                 while (!correctDateFormat) {
 
                        try {
@@ -300,7 +307,7 @@ public class UserInputManager {
                 }
                 break;
 
-            case "Status":
+            case "status":
 
                 while (!correctStatus) {
                     newStatus = getUserInput("What is the new status?\nValid input is <finished> and <unfinished>.");

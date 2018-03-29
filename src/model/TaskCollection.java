@@ -41,10 +41,23 @@ public class TaskCollection {
 
     public TaskCollectionDTO showAllTasks() {
 
-        List<Task> sortedTaskCollectin = taskCollection.stream().sorted((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate())).collect(Collectors.toList());
+        if(!taskCollection.isEmpty()) {
 
-        return new TaskCollectionDTO(sortedTaskCollectin, projectName);
+            ArrayList<TaskDTO> taskCollectionDTO = new ArrayList<>();
 
+            for (Task task : taskCollection) {
+
+                taskCollectionDTO.add(new TaskDTO(task.getTitle(), task.getDueDate(), task.getBooleanStatus()));
+            }
+
+            List<TaskDTO> sortedTaskCollectin = taskCollectionDTO.stream().sorted((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate())).collect(Collectors.toList());
+
+            return new TaskCollectionDTO(sortedTaskCollectin, projectName);
+        } else {
+
+            TaskCollectionDTO taskCollectionDTOEmpty = null;
+            return taskCollectionDTOEmpty;
+        }
     }
 
     /**

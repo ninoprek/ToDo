@@ -8,16 +8,16 @@ import java.util.List;
 
 public class TaskCollectionDTO {
 
-    private List<Task> taskCollection;
+    private List<TaskDTO> taskCollection;
     private String projectName;
 
-    public TaskCollectionDTO (List<Task> taskCollection, String collectionName) {
+    public TaskCollectionDTO (List<TaskDTO> taskCollection, String collectionName) {
 
         this.taskCollection = taskCollection;
         this.projectName = collectionName;
     }
 
-    public List<Task> getTaskCollection() {
+    public List<TaskDTO> getTaskCollection() {
         return this.taskCollection;
     }
 
