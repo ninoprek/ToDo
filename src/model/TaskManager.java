@@ -15,7 +15,7 @@ public class TaskManager {
     public TaskManager() {
 
         users = new ArrayList<>();
-        fileUtility = new FileUtility("inputFile.txt");
+        fileUtility = new FileUtility("Giuseppe");
     }
 
     /**
@@ -99,7 +99,7 @@ public class TaskManager {
 
     public void loadUser () {
 
-        LoadUserDTO loadUser = fileUtility.loadFromFile();
+        UserFileDTO loadUser = fileUtility.loadFromFile();
 
         addUser(loadUser.getUserName());
 

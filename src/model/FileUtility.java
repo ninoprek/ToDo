@@ -1,5 +1,7 @@
 package model;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -24,6 +26,8 @@ public class FileUtility {
     private SimpleDateFormat dateFormat;
     private Scanner reader;
 
+    public static final String FILE_FORMAT = ".txt";
+
     /**
      * Sets the path of the file that is being read
      * @param inputFileName
@@ -31,9 +35,10 @@ public class FileUtility {
 
     public FileUtility (String inputFileName) {
 
-        path = Paths.get(inputFileName);
+        path = Paths.get(inputFileName + FILE_FORMAT);
 
         dateFormat = new SimpleDateFormat(DATE_FORMAT);
+
         try {
             reader = new Scanner(Files.newBufferedReader(path, Charset.defaultCharset()));
         } catch (IOException e) {
@@ -42,7 +47,12 @@ public class FileUtility {
         }
     }
 
-    public LoadUserDTO loadFromFile () {
+    /**
+     * Reads the data related to a single user from a file.
+     * @return returns <code>{@link UserFileDTO}</code> object which contains user name, user's projects and tasks related to these projects.
+     */
+
+    public UserFileDTO loadFromFile () {
 
         String line;
         ArrayList<String> projecList = new ArrayList<>();
@@ -89,7 +99,39 @@ public class FileUtility {
             taskCollections.add(new TaskCollectionDTO(taskDTOCollection, projecList.get(i)));
         }
 
-        return new LoadUserDTO(userName, taskCollections);
+        return new UserFileDTO(userName, taskCollections);
     }
+
+    /**
+     * Writes the data related to a specified <code>{@link User}</code> to a file
+     * @param userFileDTO DTO that contains user name, user projects and tasks related to projects
+     * @throws IOException Throws an exception if there is a problem with creating or writing to a file.
+     */
+
+    public void saveUserDTO (UserFileDTO userFileDTO) throws IOException {
+
+        Path resultsFilePath = Paths.get(userFileDTO.getUserName() + FILE_FORMAT).toAbsolutePath();
+        FileWriter writer = null;
+
+        writer = new FileWriter(resultsFilePath.toString());
+
+        BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+
+        bufferedWriter.write(userFileDTO.getUserName() + ",," + userFileDTO.getTaskCollections().size() + "\n");
+
+        for (TaskCollectionDTO taskCollectionDTO : userFileDTO.getTaskCollections()) {
+
+            bufferedWriter.write(taskCollectionDTO.getProjectName() + ",," + taskCollectionDTO.getTaskCollection().size() + "\n");
+
+            for (TaskDTO taskDTO : taskCollectionDTO.getTaskCollection()) {
+                bufferedWriter.write(taskDTO.getTitle() + ",," + dateFormat.format(taskDTO.getDueDate()) + ",," + taskDTO.isStatus() + "\n");
+            }
+        }
+
+        bufferedWriter.close();
+
+    }
+
 
 }

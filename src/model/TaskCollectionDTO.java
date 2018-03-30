@@ -24,4 +24,5 @@ public class TaskCollectionDTO {
     public String getProjectName() {
         return this.projectName;
     }
+
 }

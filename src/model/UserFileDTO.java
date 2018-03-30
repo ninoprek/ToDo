@@ -2,13 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
-public class LoadUserDTO {
+public class UserFileDTO {
 
     private String userName;
     private ArrayList<TaskCollectionDTO> taskCollections;
 
 
-    public LoadUserDTO (String userName, ArrayList<TaskCollectionDTO> taskCollections) {
+    public UserFileDTO (String userName, ArrayList<TaskCollectionDTO> taskCollections) {
 
         this.userName = userName;
         this.taskCollections = taskCollections;
