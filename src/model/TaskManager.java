@@ -10,12 +10,10 @@ public class TaskManager {
 
     private ArrayList<User> users;
     private User currentUser;
-    private FileUtility fileUtility;
 
     public TaskManager() {
 
         users = new ArrayList<>();
-        fileUtility = new FileUtility("Giuseppe");
     }
 
     /**
@@ -54,12 +52,16 @@ public class TaskManager {
      * Prints out names of all users.
      */
 
-    public void showAllUsers () {
+    public ArrayList<String> showAllUsers () {
+
+        ArrayList<String> allUsers = new ArrayList<>();
 
         for (User user : users) {
 
-            System.out.println(user.getUserName());
+            allUsers.add(user.getUserName());
         }
+
+        return allUsers;
     }
 
     /**
@@ -77,8 +79,6 @@ public class TaskManager {
 
             return empty;
         }
-
-
     }
 
     /**
@@ -88,6 +88,15 @@ public class TaskManager {
 
     public ArrayList<String> showAllProjects () {
         return currentUser.showAllProjects();
+    }
+
+    /**
+     * Get's the name of the current user
+     * @return <code>String</code> value of the <code>currentUser</code>
+     */
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 
     /**
@@ -106,13 +115,16 @@ public class TaskManager {
      * Reads a <code>{@link User}</code> object form the class with all of it's fields
      */
 
-    public void loadUser () {
+    public void loadUser (String userName) {
+
+        FileUtility fileUtility = new FileUtility(userName);
 
         UserFileDTO loadUser = fileUtility.loadFromFile();
 
         addUser(loadUser.getUserName());
 
-        ArrayList<TaskCollectionDTO> taskCollectionsDTO = loadUser.getTaskCollections();
+        ArrayList<TaskCollectionDTO> taskCollectionsDTO = loadUser.getProjectCollection();
+
 
         for (TaskCollectionDTO taskCol : taskCollectionsDTO) {
 
@@ -124,7 +136,28 @@ public class TaskManager {
             }
 
         }
-
     }
+
+    /**
+     * Changes the current project of the current user
+     * @param projectNumber Project number which will be set as current
+     */
+
+    public void changeProject (int projectNumber) {
+
+        currentUser.changeProject(projectNumber);
+    }
+
+    /**
+     * Changes the current user
+     * @param userNumber User number which will be set as current
+     */
+
+    public void changeUser (int userNumber) {
+
+        currentUser = users.get(userNumber);
+    }
+
+
 
 }

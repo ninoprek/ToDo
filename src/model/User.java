@@ -9,13 +9,13 @@ import java.util.ArrayList;
 public class User {
 
     private String userName;
-    private ArrayList<TaskCollection> taskCollections;
-    private TaskCollection currentTaskCollection;
+    private ArrayList<TaskCollection> projectCollection;
+    private TaskCollection currentProject;
 
     public User (String userName) {
 
         this.userName = userName;
-        taskCollections = new ArrayList<>();
+        projectCollection = new ArrayList<>();
     }
 
     /**
@@ -25,8 +25,8 @@ public class User {
 
     public void createTaskCollection (String collectionName) {
 
-        currentTaskCollection = new TaskCollection(collectionName);
-        taskCollections.add(currentTaskCollection);
+        currentProject = new TaskCollection(collectionName);
+        projectCollection.add(currentProject);
     }
 
     /**
@@ -36,9 +36,7 @@ public class User {
 
     public void createTask (TaskDTO taskDTO) {
 
-        currentTaskCollection.crateNewTask(taskDTO);
-
-        taskCollections.add(currentTaskCollection);
+        currentProject.crateNewTask(taskDTO);
     }
 
     /**
@@ -57,7 +55,7 @@ public class User {
 
     public TaskCollectionDTO showAllTasks() {
 
-        return currentTaskCollection.showAllTasks();
+        return currentProject.showAllTasks();
     }
 
     /**
@@ -69,8 +67,9 @@ public class User {
 
         ArrayList<String> allProjects = new ArrayList<>();
 
-        for (TaskCollection taskCollection : taskCollections) {
+        for (TaskCollection taskCollection : projectCollection) {
             allProjects.add(taskCollection.getProjectName());
+
         }
         return allProjects;
     }
@@ -84,7 +83,17 @@ public class User {
 
     public void editTask(String taskFieldToEdit , TaskFieldValue taskFieldValue , Integer taskNumber) {
 
-        currentTaskCollection.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
+        currentProject.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
+    }
+
+    /**
+     * Changes the current project of the current user
+     * @param projectNumber Project number which will be set as current
+     */
+
+    public void changeProject (int projectNumber) {
+
+        currentProject = projectCollection.get(projectNumber);
     }
 
 }

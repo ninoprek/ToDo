@@ -95,37 +95,56 @@ public class UserInputManager {
 
                 if(secondWord == null) {
                     printView.printMessage("Create new user name, list and task\n");
-                    newStartInput();
+                    newStart();
+                    break;
+                } else if (secondWord.equals("user")) {
+                    printView.printMessage("Create new user\n");
+                    createNewUser();
                     break;
                 } else if (secondWord.equals("task")) {
                     printView.printMessage("Create new task\n");
-                    newTaskInput();
+                    newTask();
                     break;
                 } else if (secondWord.equals("project")) {
                     printView.printMessage("Create new project\n");
                     createNewProject();
                     break;
                 } else {
-                    printView.printMessage("What do you want to create?!");
+                    printView.printMessage("What do you want to create?!\nValid input is <new>, <new task> and <new project>");
                     break;
                 }
 
-            case TASK:
-                printView.printMessage("Create new task");
-                newTaskInput();
-                break;
+            case CHANGE:
+
+                if (secondWord != null) {
+
+                    if (secondWord.equals("user")) {
+                        changeUser();
+                        break;
+                    } else if (secondWord.equals("project")) {
+                        changeProject();
+                        break;
+                    }
+
+                } else {
+                    printView.printMessage("What do you want to change?\nValid input is <change user> and <change project>");
+                    break;
+                }
 
             case TASKS:
                 printView.printMessage("All tasks");
-                printView.printMessage("---------------");
                 printView.showAllTasks(controller.showAllTasks());
-                System.out.println("---------------");
                 break;
 
             case USERS:
                 printView.printMessage("All users");
+                showAllUsers();
+                break;
+
+            case PROJECTS:
+                printView.printMessage("All projects by " + controller.getCurrentUser().getUserName());
                 printView.printMessage("---------------");
-                controller.showAllUsers();
+                showAllProjects();
                 System.out.println("---------------");
                 break;
 
@@ -139,9 +158,8 @@ public class UserInputManager {
                 } else if (secondWord.equals("task")) {
                     printView.printMessage("This is task edit\n");
                     printView.printMessage("All tasks");
-                    printView.printMessage("---------------");
                     printView.showAllTasks(controller.showAllTasks());
-                    printView.printMessage("---------------");
+
 
                     editTask();
                     printView.printMessage("The task has been edited successfully!\nInput <tasks> to list all the tasks in project");
@@ -161,7 +179,7 @@ public class UserInputManager {
 
             case LOAD:
                 printView.printMessage("This is load");
-                controller.loadUser();
+                controller.loadUser("Giuseppe");
                 break;
 
             case QUIT:
@@ -219,30 +237,30 @@ public class UserInputManager {
         printView.printMessage("-------------------------------");
     }
 
-    private void newStartInput() {
+    private void newStart() {
 
-        newUserInput();
+        newUser();
 
-        newProjectInput();
+        newProject();
 
-        newTaskInput();
+        newTask();
     }
 
-    private void newUserInput () {
+    private void newUser () {
 
         String userName = getUserInput("What is your name?");
 
         controller.createUser(userName);
     }
 
-    private void newProjectInput () {
+    private void newProject () {
 
         String collectionName = getUserInput("What is the name of your new ToDo list project?");
 
         controller.createTaskCollection(collectionName);
     }
 
-    private void newTaskInput() {
+    private void newTask() {
 
         String title;
         boolean correctDateFormat = true;
@@ -286,7 +304,7 @@ public class UserInputManager {
         boolean correctStatus = false;
         DateFormat dateParser = new SimpleDateFormat(DATE_FORMAT);
 
-        taskNumber = Integer.parseInt(getUserInput("Which task number you want to edit?"));
+        taskNumber = Integer.parseInt(getUserInput("Which task number you want to edit?")) - 1;
 
         while (!validFieldToEdit) {
 
@@ -352,10 +370,84 @@ public class UserInputManager {
 
         if (!projectExists) {
             controller.createTaskCollection(newProjectName);
+            printView.printMessage("Project " + newProjectName + " has been created.");
         } else {
             printView.printMessage("The project already exists!");
         }
     }
+
+    private void createNewUser () {
+
+        String newUserName = getUserInput("What is the new user's name?");
+        boolean userExists = false;
+
+        ArrayList<String> userNames = controller.showAllUsers();
+
+        for (String userName : userNames) {
+            if (userName.equals(newUserName)) {
+                userExists = true;
+                break;
+            }
+        }
+
+        if (!userExists) {
+            controller.createUser(newUserName);
+            printView.printMessage("User " + newUserName + " is created.");
+        }
+    }
+
+    private void showAllUsers () {
+
+        printView.showAllUsers(controller.showAllUsers());
+    }
+
+    private void showAllProjects () {
+
+        ArrayList<String> projectNames = controller.showAllProjects();
+
+        printView.showAllProjects(projectNames);
+
+    }
+
+    private void changeProject() {
+
+        boolean correctProjectNumber = false;
+
+        while (!correctProjectNumber) {
+            showAllProjects();
+
+            int projectNumber = Integer.parseInt(getUserInput("To which project number do you want to change to?"));
+
+            if (projectNumber > 0 && projectNumber <= controller.showAllProjects().size()) {
+                correctProjectNumber = true;
+                controller.changeProject(projectNumber - 1);
+            } else {
+                printView.printMessage("This project number doesn't exist.");
+            }
+        }
+    }
+
+    private void changeUser() {
+
+        boolean correctUserNumber = false;
+
+        while (!correctUserNumber) {
+
+            showAllUsers();
+            int userNumber = Integer.parseInt(getUserInput("To which user number do you want to change to?"));
+
+
+            if (userNumber > 0 && userNumber <= controller.showAllUsers().size()) {
+                correctUserNumber = true;
+                controller.changeUser(userNumber - 1);
+            } else {
+                printView.printMessage("This user doesn't exist.");
+            }
+        }
+
+
+    }
+
 
     private String getUserInput (String messageToUser) {
 
@@ -366,5 +458,7 @@ public class UserInputManager {
 
         return userInput;
     }
+
+
 
 }

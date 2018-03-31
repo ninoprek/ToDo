@@ -53,9 +53,9 @@ public class Controller {
      * Prints out names of all registered users
      */
 
-    public void showAllUsers() {
+    public ArrayList<String> showAllUsers() {
 
-        taskManager.showAllUsers();
+        return taskManager.showAllUsers();
     }
 
     /**
@@ -83,6 +83,15 @@ public class Controller {
      * @param taskNumber Number of the <code>{@link Task}</code> object in <code>taskCollection</code>
      */
 
+    /**
+     * Get's the name of the current user
+     * @return <code>String</code> value of the <code>currentUser</code>
+     */
+
+    public User getCurrentUser() {
+        return taskManager.getCurrentUser();
+    }
+
     public void editTask(String taskFieldToEdit , TaskFieldValue taskFieldValue , Integer taskNumber) {
 
         taskManager.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
@@ -92,9 +101,29 @@ public class Controller {
      * Calls method in <code>{@link TaskManager}</code> to load <code>{@link User}</code> information from file.
      */
 
-    public void loadUser () {
+    public void loadUser (String userName) {
 
-        taskManager.loadUser();
+        taskManager.loadUser(userName);
+    }
+
+    /**
+     * Changes the current project of the current user
+     * @param projectNumber Project number which will be set as current
+     */
+
+    public void changeProject (int projectNumber) {
+
+        taskManager.changeProject(projectNumber);
+    }
+
+    /**
+     * Changes the current user
+     * @param userNumber User number which will be set as current
+     */
+
+    public void changeUser (int userNumber) {
+
+        taskManager.changeUser(userNumber);
     }
 
 

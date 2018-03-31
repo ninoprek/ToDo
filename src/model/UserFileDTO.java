@@ -5,20 +5,20 @@ import java.util.ArrayList;
 public class UserFileDTO {
 
     private String userName;
-    private ArrayList<TaskCollectionDTO> taskCollections;
+    private ArrayList<TaskCollectionDTO> projectCollection;
 
 
     public UserFileDTO (String userName, ArrayList<TaskCollectionDTO> taskCollections) {
 
         this.userName = userName;
-        this.taskCollections = taskCollections;
+        this.projectCollection = taskCollections;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public ArrayList<TaskCollectionDTO> getTaskCollections() {
-        return taskCollections;
+    public ArrayList<TaskCollectionDTO> getProjectCollection() {
+        return projectCollection;
     }
 }

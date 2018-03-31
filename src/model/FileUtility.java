@@ -111,16 +111,15 @@ public class FileUtility {
     public void saveUserDTO (UserFileDTO userFileDTO) throws IOException {
 
         Path resultsFilePath = Paths.get(userFileDTO.getUserName() + FILE_FORMAT).toAbsolutePath();
-        FileWriter writer = null;
 
-        writer = new FileWriter(resultsFilePath.toString());
+        FileWriter writer = new FileWriter(resultsFilePath.toString());
 
         BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
 
-        bufferedWriter.write(userFileDTO.getUserName() + ",," + userFileDTO.getTaskCollections().size() + "\n");
+        bufferedWriter.write(userFileDTO.getUserName() + ",," + userFileDTO.getProjectCollection().size() + "\n");
 
-        for (TaskCollectionDTO taskCollectionDTO : userFileDTO.getTaskCollections()) {
+        for (TaskCollectionDTO taskCollectionDTO : userFileDTO.getProjectCollection()) {
 
             bufferedWriter.write(taskCollectionDTO.getProjectName() + ",," + taskCollectionDTO.getTaskCollection().size() + "\n");
 
