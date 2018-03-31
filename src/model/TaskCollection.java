@@ -73,4 +73,8 @@ public class TaskCollection {
 
         taskToEdit.editTask(taskFieldToEdit, taskFieldValue);
     }
+
+    public String getProjectName() {
+        return projectName;
+    }
 }

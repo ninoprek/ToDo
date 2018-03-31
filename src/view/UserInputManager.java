@@ -8,6 +8,7 @@ import model.TaskFieldValue;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -97,8 +98,15 @@ public class UserInputManager {
                     newStartInput();
                     break;
                 } else if (secondWord.equals("task")) {
-                    printView.printMessage("Create new task");
+                    printView.printMessage("Create new task\n");
                     newTaskInput();
+                    break;
+                } else if (secondWord.equals("project")) {
+                    printView.printMessage("Create new project\n");
+                    createNewProject();
+                    break;
+                } else {
+                    printView.printMessage("What do you want to create?!");
                     break;
                 }
 
@@ -326,6 +334,27 @@ public class UserInputManager {
         }
 
         controller.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
+    }
+
+    private void createNewProject() {
+
+        String newProjectName = getUserInput("What is the name of the new project?");
+        boolean projectExists  = false;
+
+        ArrayList<String> projectNames = controller.showAllProjects();
+
+        for (String projectName : projectNames) {
+            if (projectName.equals(newProjectName)) {
+                projectExists = true;
+                break;
+            }
+        }
+
+        if (!projectExists) {
+            controller.createTaskCollection(newProjectName);
+        } else {
+            printView.printMessage("The project already exists!");
+        }
     }
 
     private String getUserInput (String messageToUser) {

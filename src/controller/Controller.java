@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,8 +21,8 @@ public class Controller {
     }
 
     /**
-     * Creates a new <code>user</code>
-     * @param name Name of the <code>user</code>
+     * Creates a new <code>{@link User}</code> object
+     * @param name Name of the <code>{@link User}</code>
      */
     public void createUser(String name) {
 
@@ -29,7 +30,7 @@ public class Controller {
     }
 
     /**
-     * Creates new collection of <code>tasks</code> for the current <code>user</code>
+     * Creates new collection of <code>{@link Task}</code> objects for the  <code>currentUser</code>
      * @param collectionName Name of the collection
      */
 
@@ -64,6 +65,15 @@ public class Controller {
     public TaskCollectionDTO showAllTasks() {
 
         return taskManager.showAllTasks();
+    }
+
+    /**
+     * Returns names of all projects (<code>{@link TaskCollection}</code>s)
+     * @return <code>ArrayList<String></code> of project names
+     */
+
+    public ArrayList<String> showAllProjects () {
+        return taskManager.showAllProjects();
     }
 
     /**

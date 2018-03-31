@@ -61,6 +61,21 @@ public class User {
     }
 
     /**
+     * Returns names of all projects (<code>{@link TaskCollection}</code>s)
+     * @return <code>ArrayList<String></code> of project names
+     */
+
+    public ArrayList<String> showAllProjects() {
+
+        ArrayList<String> allProjects = new ArrayList<>();
+
+        for (TaskCollection taskCollection : taskCollections) {
+            allProjects.add(taskCollection.getProjectName());
+        }
+        return allProjects;
+    }
+
+    /**
      * Calls method to edit <code>{@link Task}</code> object field
      * @param taskFieldToEdit Name of the field that has to edited.
      * @param taskFieldValue Value that has to be stored at <code>taskFieldToEdit</code> field.

@@ -82,6 +82,15 @@ public class TaskManager {
     }
 
     /**
+     * Returns names of all projects (<code>{@link TaskCollection}</code>s)
+     * @return <code>ArrayList<String></code> of project names
+     */
+
+    public ArrayList<String> showAllProjects () {
+        return currentUser.showAllProjects();
+    }
+
+    /**
      * Calls method to edit <code>{@link Task}</code> object field in <code>currentTaskCollection</code> for <code>currentUser</code>
      * @param taskFieldToEdit Name of the field that has to edited.
      * @param taskFieldValue Value that has to be stored at <code>taskFieldToEdit</code> field.
