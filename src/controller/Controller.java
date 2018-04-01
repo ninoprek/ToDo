@@ -143,5 +143,14 @@ public class Controller {
         taskManager.removeTask(taskToRemove);
     }
 
+    /**
+     * Removes the project from the project collection.
+     * @param projectToRemove Number of the project in project collection that has to be removed.
+     */
+
+    public void removeProject (int projectToRemove) {
+        taskManager.removeProject(projectToRemove);
+    }
+
 
 }

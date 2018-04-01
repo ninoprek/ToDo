@@ -24,9 +24,16 @@ public class PrintView {
     public void showAllUsers (ArrayList<String> userNames) {
 
         System.out.println("\n---------------");
-        for (int i = 0; i < userNames.size(); i++) {
-            System.out.println((i + 1) + ": " + userNames.get(i));
+
+        if (userNames.size() > 0 ) {
+
+            for (int i = 0; i < userNames.size(); i++) {
+                System.out.println((i + 1) + ": " + userNames.get(i));
+            }
+        } else {
+            System.out.println("Currently, there are no users created.  ");
         }
+
         System.out.println("---------------\n");
     }
 
@@ -51,7 +58,9 @@ public class PrintView {
 
     public void showAllProjects (ArrayList<String> projectNames) {
 
-        if (projectNames != null ) {
+        System.out.println("\n---------------");
+        if (projectNames.size() > 0 ) {
+
             int i = 1;
             for (String projectName : projectNames) {
                 System.out.println( i + ": " + projectName);
@@ -59,8 +68,9 @@ public class PrintView {
             }
 
         } else {
-            System.out.println("There are no projects created");
+            System.out.println("There are no projects created.");
         }
+        System.out.println("---------------");
     }
 
 }

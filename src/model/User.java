@@ -106,5 +106,39 @@ public class User {
         currentProject.removeTask(taskToRemove);
     }
 
+    /**
+     * Removes specified project from the <code>projectCollection</code>. If the project is set as <code>currentProject</code>,
+     * different one is set as the current one if it exits. If not, <code>currentProject</code> is set to null.
+     * @param projectToRemove Number of the project in <code>projectCollection</code> that has to be removed.
+     */
+
+    public void removeProject (int projectToRemove) {
+
+        if (projectCollection.get(projectToRemove).getProjectName().equals(currentProject.getProjectName())) {
+
+            if (projectCollection.size() > 1) {
+
+                if (projectToRemove > 0 ) {
+
+                    currentProject = projectCollection.get(projectToRemove - 1);
+                    projectCollection.remove(projectToRemove);
+
+                } else {
+
+                    currentProject = projectCollection.get(projectToRemove + 1);
+                    projectCollection.remove(projectToRemove);
+                }
+
+            } else {
+                currentProject = null;
+                projectCollection.remove(projectToRemove);
+            }
+
+        } else {
+
+            projectCollection.remove(projectToRemove);
+        }
+    }
+
 }
 

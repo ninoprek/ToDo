@@ -145,10 +145,7 @@ public class UserInputManager {
                 break;
 
             case PROJECTS:
-                printView.printMessage("All projects by " + controller.getCurrentUser().getUserName());
-                printView.printMessage("---------------");
                 showAllProjects();
-                System.out.println("---------------");
                 break;
 
             case EDIT:
@@ -175,17 +172,18 @@ public class UserInputManager {
 
             case REMOVE:
 
-                if (secondWord == null) {
-                    printView.printMessage("What do you want to remove?\n\nValid input is <remove task>, <remove project> and <remove user>");
+                if (secondWord == null || (!secondWord.equals("task") && !secondWord.equals("project")) ) {
+                    printView.printMessage("What do you want to remove?\n\nValid input is <remove task> and <remove project>");
                     break;
                 } else if (secondWord.equals("task")) {
                     printView.showAllTasks(controller.showAllTasks());
                     removeTask();
                     break;
+                } else if (secondWord.equals("project")) {
+                    showAllProjects();
+                    removeProject();
+                    break;
                 }
-
-                   break;
-
 
             case LOAD:
                 printView.printMessage("This is load");
@@ -407,9 +405,9 @@ public class UserInputManager {
     }
     private void removeTask () {
 
-        int taskToRemove = Integer.parseInt(getUserInput("Which task do you want to remove?\n")) - 1;
+        int taskToRemove = Integer.parseInt(getUserInput("Which task number do you want to remove?\n")) - 1;
 
-        if (taskToRemove > 0 && taskToRemove < controller.showAllTasks().getTaskCollection().size()) {
+        if (taskToRemove >= 0 && taskToRemove < controller.showAllTasks().getTaskCollection().size()) {
 
               boolean readyToRemove = false;
 
@@ -428,10 +426,40 @@ public class UserInputManager {
                   } else {
                       printView.printMessage("The your answer is not recognized.\n");
                   }
-              }                                    
+              }
 
         } else {
             printView.printMessage("This task doesn't exist!");
+        }
+    }
+
+    private void removeProject () {
+
+        int projectToRemove = Integer.parseInt(getUserInput("\nWhich project number do you want to remove?")) - 1;
+
+        if (projectToRemove >= 0 && projectToRemove < controller.showAllProjects().size()) {
+
+            boolean readyToRemove = false;
+
+            while (!readyToRemove) {
+
+                String removeAnswer = getUserInput("Are you sure you want to remove this project?\n\n<y> or <n>");
+
+                if (removeAnswer.equals("y")) {
+                    controller.removeProject(projectToRemove);
+                    printView.printMessage("Project is removed successfully.");
+                    readyToRemove = true;
+
+                } else if (removeAnswer.equals("n")) {
+                    printView.printMessage("Project has not been removed!");
+                    readyToRemove = true;
+                } else {
+                    printView.printMessage("The your answer is not recognized.\n");
+                }
+            }
+
+        } else {
+            printView.printMessage("This project doesn't exist!");
         }
     }
 
@@ -447,9 +475,20 @@ public class UserInputManager {
 
     private void showAllProjects () {
 
-        ArrayList<String> projectNames = controller.showAllProjects();
+        String userName = controller.getCurrentUser().getUserName();
 
-        printView.showAllProjects(projectNames);
+        if (userName != null) {
+
+            printView.printMessage("All projects by " + userName);
+
+            ArrayList<String> projectNames = controller.showAllProjects();
+
+            printView.showAllProjects(projectNames);
+        } else {
+            printView.printMessage("Please create a user first by using <new> or <new user> command.");
+        }
+
+
 
     }
 
@@ -489,7 +528,6 @@ public class UserInputManager {
             }
         }
     }
-
 
     private String getUserInput (String messageToUser) {
 
