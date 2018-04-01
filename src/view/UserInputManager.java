@@ -187,7 +187,7 @@ public class UserInputManager {
 
             case LOAD:
                 printView.printMessage("This is load");
-                controller.loadUser("Giuseppe");
+                controller.loadUser("users/Giuseppe");
                 break;
 
             case QUIT:
@@ -236,12 +236,30 @@ public class UserInputManager {
     public void getPrintStart() {
 
         printView.printMessage("Welcome to the coolest ToDo app");
+        printView.printMessage(" ,--.--------.   _,.---._                   _,.---._     \n" +
+                "/==/,  -   , -\\,-.' , -  `.   _,..---._   ,-.' , -  `.   \n" +
+                "\\==\\.-.  - ,-./==/_,  ,  - \\/==/,   -  \\ /==/_,  ,  - \\  \n" +
+                " `--`\\==\\- \\ |==|   .=.     |==|   _   _\\==|   .=.     | \n" +
+                "      \\==\\_ \\|==|_ : ;=:  - |==|  .=.   |==|_ : ;=:  - | \n" +
+                "      |==|- ||==| , '='     |==|,|   | -|==| , '='     | \n" +
+                "      |==|, | \\==\\ -    ,_ /|==|  '='   /\\==\\ -    ,_ /  \n" +
+                "      /==/ -/  '.='. -   .' |==|-,   _`/  '.='. -   .'   \n" +
+                "      `--`--`    `--`--''   `-.`.____.'     `--`--''  ");
         printView.printMessage("-------------------------------");
     }
 
     public void getPrintExit() {
 
-        printView.printMessage("Thank for using ToDo app");
+        printView.printMessage("Thank for using");
+        printView.printMessage(" ,--.--------.   _,.---._                   _,.---._     \n" +
+                "/==/,  -   , -\\,-.' , -  `.   _,..---._   ,-.' , -  `.   \n" +
+                "\\==\\.-.  - ,-./==/_,  ,  - \\/==/,   -  \\ /==/_,  ,  - \\  \n" +
+                " `--`\\==\\- \\ |==|   .=.     |==|   _   _\\==|   .=.     | \n" +
+                "      \\==\\_ \\|==|_ : ;=:  - |==|  .=.   |==|_ : ;=:  - | \n" +
+                "      |==|- ||==| , '='     |==|,|   | -|==| , '='     | \n" +
+                "      |==|, | \\==\\ -    ,_ /|==|  '='   /\\==\\ -    ,_ /  \n" +
+                "      /==/ -/  '.='. -   .' |==|-,   _`/  '.='. -   .'   \n" +
+                "      `--`--`    `--`--''   `-.`.____.'     `--`--''  ");
         printView.printMessage("-------------------------------");
     }
 

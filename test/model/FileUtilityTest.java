@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -20,19 +21,22 @@ class FileUtilityTest {
 
     @BeforeEach
     void setUp() {
-        fileUtility = new FileUtility("inputFile");
+        fileUtility = new FileUtility("users/inputFile");
     }
 
     @AfterEach
     void tearDown() {
     }
 
+
+    @Disabled
     @Test
     void readUserFileTest() {
 
         fileUtility.loadFromFile();
     }
 
+    @Disabled
     @Test
     void writeUserFileTest() {
 
@@ -75,5 +79,15 @@ class FileUtilityTest {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    void readFilesFromDirectoryTest() {
+
+        try {
+            fileUtility.listOfAllFiles();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

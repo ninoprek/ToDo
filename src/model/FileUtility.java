@@ -1,18 +1,14 @@
 package model;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Stream;
 
 import static view.UserInputManager.DATE_FORMAT;
 
@@ -132,5 +128,42 @@ public class FileUtility {
 
     }
 
+    public void listOfAllFiles () throws IOException {
+
+        /*File directoryPath = new File("users");
+
+        //List text files only
+        System.out.println("\n------------Text files------------");
+        File[] files=directoryPath.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".txt");
+            }
+        });
+
+        for (File file : files) {
+            System.out.println(file.getName());
+        }
+    }*/
+
+        Path newPath = Paths.get("users");
+
+        ArrayList<String> availableUsers = new ArrayList<>();
+
+        try (Stream<Path> paths = Files.walk(Paths.get(String.valueOf(newPath)))) {
+            paths.forEach(filePath -> {
+                if (Files.isRegularFile(filePath) && String.valueOf(filePath).endsWith(".txt")) {
+
+                        availableUsers.add(String.valueOf(filePath));
+                }
+            });
+            
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        availableUsers.stream().forEach(System.out::println);
+    }
 
 }
