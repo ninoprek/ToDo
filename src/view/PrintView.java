@@ -35,7 +35,7 @@ public class PrintView {
         if (sortedTaskCollectin != null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
-            System.out.println("Project name: " + sortedTaskCollectin.getProjectName() + "\n");
+            System.out.println("\nProject name: " + sortedTaskCollectin.getProjectName());
 
             System.out.println("\n---------------");
             int i = 1;

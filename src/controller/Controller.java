@@ -92,6 +92,13 @@ public class Controller {
         return taskManager.getCurrentUser();
     }
 
+    /**
+     * Calls method to edit <code>{@link Task}</code> object field in <code>currentTaskCollection</code> for <code>currentUser</code>
+     * @param taskFieldToEdit Name of the field that has to edited.
+     * @param taskFieldValue Value that has to be stored at <code>taskFieldToEdit</code> field.
+     * @param taskNumber Number of the <code>{@link Task}</code> object in <code>taskCollection</code>
+     */
+
     public void editTask(String taskFieldToEdit , TaskFieldValue taskFieldValue , Integer taskNumber) {
 
         taskManager.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
@@ -124,6 +131,16 @@ public class Controller {
     public void changeUser (int userNumber) {
 
         taskManager.changeUser(userNumber);
+    }
+
+    /**
+     * Removes a <code>{@link Task}</code> from the collection.
+     * @param taskToRemove Number of a <code>{@link Task}</code> that needs to be removed.
+     */
+
+    public void removeTask (int taskToRemove) {
+
+        taskManager.removeTask(taskToRemove);
     }
 
 

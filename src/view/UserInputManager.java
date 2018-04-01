@@ -132,8 +132,11 @@ public class UserInputManager {
                 }
 
             case TASKS:
-                printView.printMessage("All tasks");
                 printView.showAllTasks(controller.showAllTasks());
+                break;
+
+            case USER:
+                showCurrentUser();
                 break;
 
             case USERS:
@@ -156,13 +159,10 @@ public class UserInputManager {
                     break;
 
                 } else if (secondWord.equals("task")) {
-                    printView.printMessage("This is task edit\n");
                     printView.printMessage("All tasks");
                     printView.showAllTasks(controller.showAllTasks());
-
-
                     editTask();
-                    printView.printMessage("The task has been edited successfully!\nInput <tasks> to list all the tasks in project");
+                    printView.printMessage("The task has been edited successfully!\n\nInput <tasks> to list all the tasks in project");
                     break;
                 } else if (secondWord.equals("project")) {
                     printView.printMessage("Edit project name");
@@ -174,8 +174,18 @@ public class UserInputManager {
                 }
 
             case REMOVE:
-                printView.printMessage("This is remove");
-                break;
+
+                if (secondWord == null) {
+                    printView.printMessage("What do you want to remove?\n\nValid input is <remove task>, <remove project> and <remove user>");
+                    break;
+                } else if (secondWord.equals("task")) {
+                    printView.showAllTasks(controller.showAllTasks());
+                    removeTask();
+                    break;
+                }
+
+                   break;
+
 
             case LOAD:
                 printView.printMessage("This is load");
@@ -395,6 +405,40 @@ public class UserInputManager {
             printView.printMessage("User " + newUserName + " is created.");
         }
     }
+    private void removeTask () {
+
+        int taskToRemove = Integer.parseInt(getUserInput("Which task do you want to remove?\n")) - 1;
+
+        if (taskToRemove > 0 && taskToRemove < controller.showAllTasks().getTaskCollection().size()) {
+
+              boolean readyToRemove = false;
+
+              while (!readyToRemove) {
+
+                  String removeAnswer = getUserInput("Are you sure you want to remove this task?\n\n<y> or <n>");
+
+                  if (removeAnswer.equals("y")) {
+                      controller.removeTask(taskToRemove);
+                      printView.printMessage("Task is removed successfully.");
+                      readyToRemove = true;
+
+                  } else if (removeAnswer.equals("n")) {
+                      printView.printMessage("Task has not been removed!");
+                      readyToRemove = true;
+                  } else {
+                      printView.printMessage("The your answer is not recognized.\n");
+                  }
+              }                                    
+
+        } else {
+            printView.printMessage("This task doesn't exist!");
+        }
+    }
+
+    private void showCurrentUser () {
+
+        printView.printMessage("Current user is: " + controller.getCurrentUser().getUserName());
+    }
 
     private void showAllUsers () {
 
@@ -444,8 +488,6 @@ public class UserInputManager {
                 printView.printMessage("This user doesn't exist.");
             }
         }
-
-
     }
 
 

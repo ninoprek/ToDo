@@ -96,5 +96,15 @@ public class User {
         currentProject = projectCollection.get(projectNumber);
     }
 
+    /**
+     * Removes a <code>{@link Task}</code> from the collection.
+     * @param taskToRemove Number of a <code>{@link Task}</code> that needs to be removed.
+     */
+
+    public void removeTask (int taskToRemove) {
+
+        currentProject.removeTask(taskToRemove);
+    }
+
 }
 
