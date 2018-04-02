@@ -132,8 +132,22 @@ public class UserInputManager {
                 }
 
             case TASKS:
-                printView.showAllTasks(controller.showAllTasks());
-                break;
+
+                if (secondWord == null){
+                    printView.showAllTasks(controller.showAllTasks());
+                    break;
+                } else if (secondWord.equals("finished")) {
+
+                    printView.showAllTasks(controller.showAllUnFinishedTasks(true));
+                    break;
+                } else if (secondWord.equals("unfinished")) {
+
+                    printView.showAllTasks(controller.showAllUnFinishedTasks(false));
+                    break;
+                } else {
+                    printView.printMessage("Invalid command.\nValid input is <task>, <task finished> of <task unfinished>");
+                    break;
+                }
 
             case USER:
                 showCurrentUser();
@@ -629,5 +643,4 @@ public class UserInputManager {
 
         return userInput;
     }
-
 }

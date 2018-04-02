@@ -61,6 +61,32 @@ public class TaskCollection {
     }
 
     /**
+     *
+     * @return Returns <code>{@link TaskCollectionDTO}</code> object that contains <code>List</code> of finished or unfinished <code>Task</code> objects.
+     */
+
+    public TaskCollectionDTO showAllUnFinishedTasks(boolean status) {
+
+        if(!taskCollection.isEmpty()) {
+
+            ArrayList<TaskDTO> taskCollectionDTO = new ArrayList<>();
+
+            for (Task task : taskCollection) {
+
+                taskCollectionDTO.add(new TaskDTO(task.getTitle(), task.getDueDate(), task.getBooleanStatus()));
+            }
+
+            List<TaskDTO> sortedTaskCollectin = taskCollectionDTO.stream().filter(task -> task.isStatus() == status).collect(Collectors.toList());
+
+            return new TaskCollectionDTO(sortedTaskCollectin, projectName);
+        } else {
+
+            TaskCollectionDTO taskCollectionDTOEmpty = null;
+            return taskCollectionDTOEmpty;
+        }
+    }
+
+    /**
      * Selects the <code>{@link Task}</code> object at certain position number from <code>taskCollection</code> and calls it's edit function.
      * @param taskFieldToEdit Name of the field that has to edited.
      * @param taskFieldValue Value that has to be stored at <code>taskFieldToEdit</code> field.

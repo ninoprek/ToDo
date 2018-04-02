@@ -86,6 +86,16 @@ public class TaskManager {
     }
 
     /**
+     * @param status Defines if the returned list is list of finished or unfinished tasks
+     * @return List of all finished or tasks in current project sorted by date.
+     */
+
+    public TaskCollectionDTO showAllUnFinishedTasks(boolean status) {
+
+        return currentUser.showAllUnFinishedTasks(status);
+    }
+
+    /**
      * Returns names of all projects (<code>{@link TaskCollection}</code>s)
      * @return <code>ArrayList<String></code> of project names
      */

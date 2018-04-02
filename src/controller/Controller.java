@@ -58,12 +58,23 @@ public class Controller {
     }
 
     /**
-     * Prints out titles of all tasks in a current task collection
+     *
+     * @return List of all tasks in current project sorted by date.
      */
 
     public TaskCollectionDTO showAllTasks() {
 
         return taskManager.showAllTasks();
+    }
+
+    /**
+     * @param status Defines if the returned list is list of finished or unfinished tasks
+     * @return List of all finished or tasks in current project sorted by date.
+     */
+
+    public TaskCollectionDTO showAllUnFinishedTasks(boolean status) {
+
+        return taskManager.showAllUnFinishedTasks(status);
     }
 
     /**
