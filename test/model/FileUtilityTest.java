@@ -2,8 +2,8 @@ package model;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -21,24 +21,17 @@ class FileUtilityTest {
 
     @BeforeEach
     void setUp() {
-        fileUtility = new FileUtility("users/Nino");
+        fileUtility = new FileUtility("users/Antonio");
     }
 
     @AfterEach
     void tearDown() {
+        fileUtility = null;
     }
 
 
-    @Disabled
     @Test
-    void readUserFileTest() {
-
-        fileUtility.loadFromFile();
-    }
-
-    @Disabled
-    @Test
-    void writeUserFileTest() {
+    void saveAndLoadUserFileTest() {
 
         ArrayList<TaskCollectionDTO> taskCollectionDTOs = new ArrayList<>();
 
@@ -70,7 +63,7 @@ class FileUtilityTest {
         taskCollectionDTOs.add(taskCollection1);
         taskCollectionDTOs.add(taskCollection2);
 
-        UserFileDTO testUserFileDTO = new UserFileDTO("Giuseppe", taskCollectionDTOs);
+        UserFileDTO testUserFileDTO = new UserFileDTO("Antonio", taskCollectionDTOs);
 
         try {
             fileUtility.saveUserDTO(testUserFileDTO);
@@ -79,11 +72,55 @@ class FileUtilityTest {
             e.printStackTrace();
         }
 
+        UserFileDTO userFileDTO  = fileUtility.loadFromFile();
+
+        boolean expectedResult = true;
+
+        Assertions.assertEquals( expectedResult, userFileDTO.getUserName().equals("Antonio"), "User name doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(0).getProjectName().equals(taskCollection1.getProjectName()), "Project name doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(1).getProjectName().equals(taskCollection2.getProjectName()), "Project name doesn't match");
+
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(0).getTaskCollection().get(0).getTitle().equals(taskCollection1.getTaskCollection().get(0).getTitle()), "Task title doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(0).getTaskCollection().get(1).getTitle().equals(taskCollection1.getTaskCollection().get(1).getTitle()), "Task title doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(0).getTaskCollection().get(2).getTitle().equals(taskCollection1.getTaskCollection().get(2).getTitle()), "Task title doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(0).getTaskCollection().get(0).getDueDate().equals(taskCollection1.getTaskCollection().get(0).getDueDate()), "Due date doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(0).getTaskCollection().get(1).getDueDate().equals(taskCollection1.getTaskCollection().get(1).getDueDate()), "Due date doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(0).getTaskCollection().get(2).getDueDate().equals(taskCollection1.getTaskCollection().get(2).getDueDate()), "Due date doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(0).getTaskCollection().get(0).isStatus() == (taskCollection1.getTaskCollection().get(0).isStatus()), "Status doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(0).getTaskCollection().get(1).isStatus() == (taskCollection1.getTaskCollection().get(1).isStatus()), "Status doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(0).getTaskCollection().get(2).isStatus() == (taskCollection1.getTaskCollection().get(2).isStatus()), "Status doesn't match");
+
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(1).getTaskCollection().get(0).getTitle().equals(taskCollection2.getTaskCollection().get(0).getTitle()), "Task title doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(1).getTaskCollection().get(1).getTitle().equals(taskCollection2.getTaskCollection().get(1).getTitle()), "Task title doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(1).getTaskCollection().get(2).getTitle().equals(taskCollection2.getTaskCollection().get(2).getTitle()), "Task title doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(1).getTaskCollection().get(0).getDueDate().equals(taskCollection2.getTaskCollection().get(0).getDueDate()), "Due date doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(1).getTaskCollection().get(1).getDueDate().equals(taskCollection2.getTaskCollection().get(1).getDueDate()), "Due date doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(1).getTaskCollection().get(2).getDueDate().equals(taskCollection2.getTaskCollection().get(2).getDueDate()), "Due date doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(1).getTaskCollection().get(0).isStatus() == (taskCollection2.getTaskCollection().get(0).isStatus()), "Status doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(1).getTaskCollection().get(1).isStatus() == (taskCollection2.getTaskCollection().get(1).isStatus()), "Status doesn't match");
+        Assertions.assertEquals( expectedResult, userFileDTO.getProjectCollection().get(1).getTaskCollection().get(2).isStatus() == (taskCollection2.getTaskCollection().get(2).isStatus()), "Status doesn't match");
     }
 
     @Test
-    void readFilesFromDirectoryTest() {
+    void loadAllUsersFromFiles () {
 
-        fileUtility.listOfAllUsers();
+        FileUtility newFileUtility = new FileUtility("users/");
+
+        ArrayList<String> expectedUsers = new ArrayList<>();
+        ArrayList<String> usersFromFile = new ArrayList<>();
+        boolean expectedResult = true;
+
+        expectedUsers.add("Antonio");
+        expectedUsers.add("Giuseppe");
+        expectedUsers.add("Marija");
+        expectedUsers.add("Nino");
+
+        usersFromFile = newFileUtility.listOfAllUsers();
+
+        Assertions.assertEquals(expectedResult, usersFromFile.get(0).equals(expectedUsers.get(1)), "Name doesn't match");
+        Assertions.assertEquals(expectedResult, usersFromFile.get(1).equals(expectedUsers.get(3)), "Name doesn't match");
+        Assertions.assertEquals(expectedResult, usersFromFile.get(2).equals(expectedUsers.get(2)), "Name doesn't match");
+        Assertions.assertEquals(expectedResult, usersFromFile.get(3).equals(expectedUsers.get(0)), "Name doesn't match");
+
     }
 }
