@@ -1,6 +1,10 @@
 package model;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Holds the list of all users, current user and manages user, list and task creation.
@@ -136,6 +140,44 @@ public class TaskManager {
             }
 
         }
+    }
+
+    /**
+     * Calls a function in <code>{@link FileUtility}</code> that saves the <code>{@link User}</code> and all of his related tasks and projects to a file.
+     * @param userNumber Number of the user in <code>users</code>.
+     */
+
+    public void saveUser(int userNumber) {
+
+
+        User userToSave = users.get(userNumber);
+        ArrayList<TaskCollectionDTO> projectCollectionDTOs = new ArrayList<>();
+        FileUtility fileUtility = new FileUtility("users/");
+
+
+        userToSave.getProjectCollection().forEach(project -> {
+
+            List<TaskDTO> taskListToSaveDTO = new ArrayList<>();
+
+            for(Task task : project.getTaskCollection()) {
+
+                taskListToSaveDTO.add(new TaskDTO(task.getTitle(), task.getDueDate(), task.getBooleanStatus()));
+            }
+
+            TaskCollectionDTO taskCollectionToSaveDTO = new TaskCollectionDTO(taskListToSaveDTO, project.getProjectName());
+            projectCollectionDTOs.add(taskCollectionToSaveDTO);
+        });
+
+        UserFileDTO userToSaveDTO = new UserFileDTO(userToSave.getUserName(), projectCollectionDTOs);
+
+        try {
+            fileUtility.saveUserDTO(userToSaveDTO);
+        } catch (IOException e) {
+
+            System.out.println("There is a problem with saving the user!");
+            e.printStackTrace();
+        }
+
     }
 
     /**

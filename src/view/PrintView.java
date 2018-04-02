@@ -74,7 +74,7 @@ public class PrintView {
         }
     }
 
-    public void showAllProjects (ArrayList<String> projectNames) {
+    public void showAllProjects (ArrayList<String> projectNames, String currentProject) {
 
         System.out.println("\n---------------");
         if (projectNames.size() > 0 ) {
@@ -89,6 +89,7 @@ public class PrintView {
             System.out.println("There are no projects created.");
         }
         System.out.println("---------------");
+        System.out.println("\nCurrent project is: " + currentProject);
     }
 
 }

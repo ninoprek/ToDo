@@ -50,8 +50,28 @@ public class User {
 
     /**
      *
+     * @return Returns all projects related to <code>User</code>
+     */
+
+    public ArrayList<TaskCollection> getProjectCollection() {
+        return projectCollection;
+    }
+
+    /**
+     *
+     * @return Returns the name of the current project.
+     */
+
+    public String getCurrentProjectName() {
+        return currentProject.getProjectName();
+    }
+
+    /**
+     *
      * @return Returns <code>TaskCollectionDTO</code> of tasks sorted by date
      */
+
+
 
     public TaskCollectionDTO showAllTasks() {
 

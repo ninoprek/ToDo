@@ -87,4 +87,8 @@ public class TaskCollection {
     public String getProjectName() {
         return projectName;
     }
+
+    public ArrayList<Task> getTaskCollection() {
+        return taskCollection;
+    }
 }

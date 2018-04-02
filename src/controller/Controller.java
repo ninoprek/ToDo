@@ -104,12 +104,21 @@ public class Controller {
     }
 
     /**
-     * Calls method in <code>{@link TaskManager}</code> to load <code>{@link User}</code> information from file.
+     * Calls a method in <code>{@link TaskManager}</code> to load <code>{@link User}</code> information from file.
      */
 
     public void loadUser (String userName) {
 
         taskManager.loadUser(userName);
+    }
+
+    /**
+     * Calls a method in <code>{@link TaskManager}</code> to save <code>{@link User}</code> information to a file.
+     * @param userNumber
+     */
+
+    public void saveUser (int userNumber) {
+        taskManager.saveUser(userNumber);
     }
 
     /**
