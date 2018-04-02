@@ -2,7 +2,7 @@ package controller;
 
 import model.*;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -20,8 +20,8 @@ public class Controller {
     }
 
     /**
-     * Creates a new <code>user</code>
-     * @param name Name of the <code>user</code>
+     * Creates a new <code>{@link User}</code> object
+     * @param name Name of the <code>{@link User}</code>
      */
     public void createUser(String name) {
 
@@ -29,7 +29,7 @@ public class Controller {
     }
 
     /**
-     * Creates new collection of <code>tasks</code> for the current <code>user</code>
+     * Creates new collection of <code>{@link Task}</code> objects for the  <code>currentUser</code>
      * @param collectionName Name of the collection
      */
 
@@ -52,18 +52,54 @@ public class Controller {
      * Prints out names of all registered users
      */
 
-    public void showAllUsers() {
+    public ArrayList<String> showAllUsers() {
 
-        taskManager.showAllUsers();
+        return taskManager.showAllUsers();
     }
 
     /**
-     * Prints out titles of all tasks in a current task collection
+     *
+     * @return List of all tasks in current project sorted by date.
      */
 
     public TaskCollectionDTO showAllTasks() {
 
         return taskManager.showAllTasks();
+    }
+
+    /**
+     * @param status Defines if the returned list is list of finished or unfinished tasks
+     * @return List of all finished or tasks in current project sorted by date.
+     */
+
+    public TaskCollectionDTO showAllUnFinishedTasks(boolean status) {
+
+        return taskManager.showAllUnFinishedTasks(status);
+    }
+
+    /**
+     * Returns names of all projects (<code>{@link TaskCollection}</code>s)
+     * @return <code>ArrayList<String></code> of project names
+     */
+
+    public ArrayList<String> showAllProjects () {
+        return taskManager.showAllProjects();
+    }
+
+    /**
+     * Calls method to edit <code>{@link Task}</code> object field in <code>currentTaskCollection</code> for <code>currentUser</code>
+     * @param taskFieldToEdit Name of the field that has to edited.
+     * @param taskFieldValue Value that has to be stored at <code>taskFieldToEdit</code> field.
+     * @param taskNumber Number of the <code>{@link Task}</code> object in <code>taskCollection</code>
+     */
+
+    /**
+     * Get's the name of the current user
+     * @return <code>String</code> value of the <code>currentUser</code>
+     */
+
+    public User getCurrentUser() {
+        return taskManager.getCurrentUser();
     }
 
     /**
@@ -78,5 +114,71 @@ public class Controller {
         taskManager.editTask(taskFieldToEdit, taskFieldValue, taskNumber);
     }
 
+    /**
+     * Calls a method in <code>{@link TaskManager}</code> to load <code>{@link User}</code> information from file.
+     */
 
+    public void loadUser (String userName) {
+
+        taskManager.loadUser(userName);
+    }
+
+    /**
+     * Calls a method in <code>{@link TaskManager}</code> to save <code>{@link User}</code> information to a file.
+     * @param userNumber
+     */
+
+    public void saveUser (int userNumber) {
+        taskManager.saveUser(userNumber);
+    }
+
+    /**
+     * Returns the list of saved users that can be loaded
+     * @param inputFolder <code>Path</code> name that points to the location of saved users
+     * @return Returns a list of saved users
+     */
+
+    public ArrayList<String> listAllUsers (String inputFolder) {
+
+        return taskManager.listAllUsers(inputFolder);
+    }
+
+    /**
+     * Changes the current project of the current user
+     * @param projectNumber Project number which will be set as current
+     */
+
+    public void changeProject (int projectNumber) {
+
+        taskManager.changeProject(projectNumber);
+    }
+
+    /**
+     * Changes the current user
+     * @param userNumber User number which will be set as current
+     */
+
+    public void changeUser (int userNumber) {
+
+        taskManager.changeUser(userNumber);
+    }
+
+    /**
+     * Removes a <code>{@link Task}</code> from the collection.
+     * @param taskToRemove Number of a <code>{@link Task}</code> that needs to be removed.
+     */
+
+    public void removeTask (int taskToRemove) {
+
+        taskManager.removeTask(taskToRemove);
+    }
+
+    /**
+     * Removes the project from the project collection.
+     * @param projectToRemove Number of the project in project collection that has to be removed.
+     */
+
+    public void removeProject (int projectToRemove) {
+        taskManager.removeProject(projectToRemove);
+    }
 }

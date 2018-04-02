@@ -41,24 +41,80 @@ public class TaskCollection {
 
     public TaskCollectionDTO showAllTasks() {
 
-        List<Task> sortedTaskCollectin = taskCollection.stream().sorted((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate())).collect(Collectors.toList());
+        if(!taskCollection.isEmpty()) {
 
-        return new TaskCollectionDTO(sortedTaskCollectin, projectName);
+            ArrayList<TaskDTO> taskCollectionDTO = new ArrayList<>();
 
+            for (Task task : taskCollection) {
+
+                taskCollectionDTO.add(new TaskDTO(task.getTitle(), task.getDueDate(), task.getBooleanStatus()));
+            }
+
+            List<TaskDTO> sortedTaskCollectin = taskCollectionDTO.stream().sorted((t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate())).collect(Collectors.toList());
+
+            return new TaskCollectionDTO(sortedTaskCollectin, projectName);
+        } else {
+
+            TaskCollectionDTO taskCollectionDTOEmpty = null;
+            return taskCollectionDTOEmpty;
+        }
     }
 
     /**
-     * Selects the <code>{@link Task}</code> object at certain position number from <code>taskCollection</code> and calls it's edit function
+     *
+     * @return Returns <code>{@link TaskCollectionDTO}</code> object that contains <code>List</code> of finished or unfinished <code>Task</code> objects.
+     */
+
+    public TaskCollectionDTO showAllUnFinishedTasks(boolean status) {
+
+        if(!taskCollection.isEmpty()) {
+
+            ArrayList<TaskDTO> taskCollectionDTO = new ArrayList<>();
+
+            for (Task task : taskCollection) {
+
+                taskCollectionDTO.add(new TaskDTO(task.getTitle(), task.getDueDate(), task.getBooleanStatus()));
+            }
+
+            List<TaskDTO> sortedTaskCollectin = taskCollectionDTO.stream().filter(task -> task.isStatus() == status).collect(Collectors.toList());
+
+            return new TaskCollectionDTO(sortedTaskCollectin, projectName);
+        } else {
+
+            TaskCollectionDTO taskCollectionDTOEmpty = null;
+            return taskCollectionDTOEmpty;
+        }
+    }
+
+    /**
+     * Selects the <code>{@link Task}</code> object at certain position number from <code>taskCollection</code> and calls it's edit function.
      * @param taskFieldToEdit Name of the field that has to edited.
      * @param taskFieldValue Value that has to be stored at <code>taskFieldToEdit</code> field.
-     * @param taskNumber Number of the <code>{@link Task}</code> object in <code>taskCollection</code>
+     * @param taskNumber Number of the <code>{@link Task}</code> object in <code>taskCollection</code>.
      */
 
     public void editTask(String taskFieldToEdit , TaskFieldValue taskFieldValue , Integer taskNumber) {
-        System.out.println("Fetching the right task in the current taskCollection");
 
         Task taskToEdit = taskCollection.get(taskNumber);
 
         taskToEdit.editTask(taskFieldToEdit, taskFieldValue);
+    }
+
+    /**
+     * Removes a <code>{@link Task}</code> from the collection.
+     * @param taskToRemove Number of a <code>{@link Task}</code> that needs to be removed.
+     */
+
+    public void removeTask (int taskToRemove) {
+
+        taskCollection.remove(taskToRemove);
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public ArrayList<Task> getTaskCollection() {
+        return taskCollection;
     }
 }

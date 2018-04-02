@@ -1,0 +1,8 @@
+Marija,,2
+after lunch,,3
+Have coffee,,12/04/2018,,true
+read Facebook,,14/04/2018,,false
+Chose a movie to watch in the evening,,12/07/2018,,false
+evening plans,,2
+get a shower,,15/03/2018,,false
+go to sleep,,02/04/2018,,false
