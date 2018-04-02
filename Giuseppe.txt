@@ -1,9 +1,0 @@
-Giuseppe,,2
-cleaning,,3
-clean my room,,02/05/2018,,false
-clean the kitchen,,04/06/2018,,false
-clean the wc,,06/07/2018,,false
-chilling,,3
-chillax,,05/08/2018,,false
-walk in the sun,,10/08/2018,,false
-got to sleep,,11/09/2018,,false
