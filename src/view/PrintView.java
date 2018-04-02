@@ -31,7 +31,25 @@ public class PrintView {
                 System.out.println((i + 1) + ": " + userNames.get(i));
             }
         } else {
-            System.out.println("Currently, there are no users created.  ");
+            System.out.println("Currently, there are no users created.");
+        }
+
+        System.out.println("---------------\n");
+    }
+
+    public void showAllLoadUsers (ArrayList<String> userNames) {
+
+        System.out.println("Users available for loading are:");
+
+        System.out.println("\n---------------");
+
+        if (userNames.size() > 0 ) {
+
+            for (int i = 0; i < userNames.size(); i++) {
+                System.out.println((i + 1) + ": " + userNames.get(i));
+            }
+        } else {
+            System.out.println("Currently, there are no users created.");
         }
 
         System.out.println("---------------\n");

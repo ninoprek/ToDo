@@ -186,8 +186,12 @@ public class UserInputManager {
                 }
 
             case LOAD:
+                loadUser();
+                break;
+
+            case SAVE:
                 printView.printMessage("This is load");
-                controller.loadUser("users/Giuseppe");
+                loadUser();
                 break;
 
             case QUIT:
@@ -234,7 +238,7 @@ public class UserInputManager {
      */
 
     public void getPrintStart() {
-
+        printView.printMessage("-------------------------------");
         printView.printMessage("Welcome to the coolest ToDo app");
         printView.printMessage(" ,--.--------.   _,.---._                   _,.---._     \n" +
                 "/==/,  -   , -\\,-.' , -  `.   _,..---._   ,-.' , -  `.   \n" +
@@ -249,8 +253,8 @@ public class UserInputManager {
     }
 
     public void getPrintExit() {
-
-        printView.printMessage("Thank for using");
+        printView.printMessage("-------------------------------");
+        printView.printMessage("Thanks for using");
         printView.printMessage(" ,--.--------.   _,.---._                   _,.---._     \n" +
                 "/==/,  -   , -\\,-.' , -  `.   _,..---._   ,-.' , -  `.   \n" +
                 "\\==\\.-.  - ,-./==/_,  ,  - \\/==/,   -  \\ /==/_,  ,  - \\  \n" +
@@ -421,6 +425,36 @@ public class UserInputManager {
             printView.printMessage("User " + newUserName + " is created.");
         }
     }
+
+    private void loadUser () {
+
+        boolean userExists = false;
+        int userNumber = 0;
+        ArrayList<String> availableUsers = controller.listAllUsers("users/");
+
+        if (availableUsers.size() > 0) {
+            while (!userExists) {
+
+                printView.showAllLoadUsers(availableUsers);
+
+                userNumber = Integer.parseInt(getUserInput("Which user number do you want to load?")) - 1;
+
+                if (userNumber < 0 || userNumber > availableUsers.size() - 1) {
+
+                    printView.printMessage("This user doesn't exist.\n");
+                } else {
+                    printView.printMessage("User " + availableUsers.get(userNumber) + " is loaded.");
+                    userExists = true;
+                }
+            }
+
+            controller.loadUser("users/" + availableUsers.get(userNumber));
+        } else {
+            printView.printMessage("There are no users to load!\nCreate a new user by entering <new> or <new user>");
+        }
+
+    }
+
     private void removeTask () {
 
         int taskToRemove = Integer.parseInt(getUserInput("Which task number do you want to remove?\n")) - 1;
@@ -507,7 +541,6 @@ public class UserInputManager {
         }
 
 
-
     }
 
     private void changeProject() {
@@ -522,6 +555,7 @@ public class UserInputManager {
             if (projectNumber > 0 && projectNumber <= controller.showAllProjects().size()) {
                 correctProjectNumber = true;
                 controller.changeProject(projectNumber - 1);
+                printView.printMessage("Current project has been changed to " + controller.showAllProjects().get(projectNumber - 1));
             } else {
                 printView.printMessage("This project number doesn't exist.");
             }

@@ -3,7 +3,6 @@ package controller;
 import model.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -114,6 +113,17 @@ public class Controller {
     }
 
     /**
+     * Returns the list of saved users that can be loaded
+     * @param inputFolder <code>Path</code> name that points to the location of saved users
+     * @return Returns a list of saved users
+     */
+
+    public ArrayList<String> listAllUsers (String inputFolder) {
+
+        return taskManager.listAllUsers(inputFolder);
+    }
+
+    /**
      * Changes the current project of the current user
      * @param projectNumber Project number which will be set as current
      */
@@ -151,6 +161,4 @@ public class Controller {
     public void removeProject (int projectToRemove) {
         taskManager.removeProject(projectToRemove);
     }
-
-
 }

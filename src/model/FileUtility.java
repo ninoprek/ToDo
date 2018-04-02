@@ -31,16 +31,10 @@ public class FileUtility {
 
     public FileUtility (String inputFileName) {
 
-        path = Paths.get(inputFileName + FILE_FORMAT);
+        path = Paths.get(inputFileName);
 
         dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
-        try {
-            reader = new Scanner(Files.newBufferedReader(path, Charset.defaultCharset()));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Problem with the path of the file");
-        }
     }
 
     /**
@@ -49,6 +43,13 @@ public class FileUtility {
      */
 
     public UserFileDTO loadFromFile () {
+
+        try {
+            reader = new Scanner(Files.newBufferedReader(Paths.get(path + FILE_FORMAT), Charset.defaultCharset()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Problem with the path of the file");
+        }
 
         String line;
         ArrayList<String> projecList = new ArrayList<>();
@@ -106,7 +107,7 @@ public class FileUtility {
 
     public void saveUserDTO (UserFileDTO userFileDTO) throws IOException {
 
-        Path resultsFilePath = Paths.get(userFileDTO.getUserName() + FILE_FORMAT).toAbsolutePath();
+        Path resultsFilePath = Paths.get("users/" + userFileDTO.getUserName() + FILE_FORMAT).toAbsolutePath();
 
         FileWriter writer = new FileWriter(resultsFilePath.toString());
 
@@ -128,42 +129,25 @@ public class FileUtility {
 
     }
 
-    public void listOfAllFiles () throws IOException {
+    public ArrayList<String> listOfAllUsers () {
 
-        /*File directoryPath = new File("users");
-
-        //List text files only
-        System.out.println("\n------------Text files------------");
-        File[] files=directoryPath.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".txt");
-            }
-        });
-
-        for (File file : files) {
-            System.out.println(file.getName());
-        }
-    }*/
-
-        Path newPath = Paths.get("users");
 
         ArrayList<String> availableUsers = new ArrayList<>();
 
-        try (Stream<Path> paths = Files.walk(Paths.get(String.valueOf(newPath)))) {
+        try (Stream<Path> paths = Files.walk(Paths.get(String.valueOf(path)))) {
             paths.forEach(filePath -> {
                 if (Files.isRegularFile(filePath) && String.valueOf(filePath).endsWith(".txt")) {
 
-                        availableUsers.add(String.valueOf(filePath));
+                        availableUsers.add(String.valueOf(filePath).substring(6).replace(".txt", ""));
                 }
             });
-            
+
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            System.out.println("Problem with reading available users.");
         }
 
-        availableUsers.stream().forEach(System.out::println);
+        return availableUsers;
     }
 
 }

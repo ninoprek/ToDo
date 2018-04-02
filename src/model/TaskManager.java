@@ -139,6 +139,19 @@ public class TaskManager {
     }
 
     /**
+     * Returns the list of saved users that can be loaded
+     * @param inputFolder <code>Path</code> name that points to the location of saved users
+     * @return Returns a list of saved users
+     */
+
+    public ArrayList<String> listAllUsers (String inputFolder) {
+
+        FileUtility fileUtility = new FileUtility(inputFolder);
+
+        return fileUtility.listOfAllUsers();
+    }
+
+    /**
      * Changes the current project of the current user
      * @param projectNumber Project number which will be set as current
      */
@@ -176,6 +189,7 @@ public class TaskManager {
     public void removeProject (int projectToRemove) {
         currentUser.removeProject(projectToRemove);
     }
+
 
 
 }

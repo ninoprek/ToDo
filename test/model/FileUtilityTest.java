@@ -21,7 +21,7 @@ class FileUtilityTest {
 
     @BeforeEach
     void setUp() {
-        fileUtility = new FileUtility("users/inputFile");
+        fileUtility = new FileUtility("users/Nino");
     }
 
     @AfterEach
@@ -84,10 +84,6 @@ class FileUtilityTest {
     @Test
     void readFilesFromDirectoryTest() {
 
-        try {
-            fileUtility.listOfAllFiles();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        fileUtility.listOfAllUsers();
     }
 }
